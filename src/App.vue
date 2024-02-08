@@ -1,8 +1,10 @@
 <template>
-  <body class="main-app">
   <div class="main-window-template">
-    <div class="main-window-search-container">{{1}}</div>
-    <div>
+    <div class="main-window-search-container">
+      <input type="text" v-model="searchText" placeholder="Поиск" />
+      <button @click="performSearch">Искать</button>
+    </div>
+    <div class="main-content">
       <router-view/>
     </div>
     <div class="main-window-navigation">
@@ -10,38 +12,53 @@
       <RouterLink to="/cart" class="nav-item">корзина</RouterLink>
     </div>
   </div>
-</body>
 </template>
 
 
 <script>
-import { RouterLink, RouterView } from 'vue-router'
-import ProductCard from '@/views/CartView.vue';
-import MainView from "@/views/MainView.vue";
+import { RouterLink } from 'vue-router';
 export default {
-  data(){
+  data() {
     return {
-
-    }
+      searchText: '',
+    };
   },
-}
+  methods: {
+    performSearch() {
+      console.log('Выполняется поиск:', this.searchText);
+    },
+  },
+};
 </script>
 
-
 <style scoped>
-.main-app {
-  margin: 0;
+
+.main-window-search-container {
+  width: 100%; /* Занимает всю ширину */
   display: flex;
-  justify-content: center; /* Центрирование по горизонтали */
-  align-items: center; /* Центрирование по вертикали */
-  height: 100vh;
-  width: 100vh;
+  align-items: center;
+}
+
+.main-window-search-container input {
+  flex: 1; /* Занимает доступное пространство */
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.main-window-search-container button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
 }
 
 .main-window-template {
+
   display: grid;
-  width: 100vh;
-  height: 100vh;
   grid-template-rows: 10vh 80vh 10vh;
   align-items: center;
   align-content: center;
