@@ -5,71 +5,50 @@
       <div class="product-details">
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
-        <button @click="addToCart(product)">Добавить в корзину</button>
+        <p>Цена: {{ product.price }} руб.</p>
+        <button @click="addToCart(product.id)">Добавить в корзину</button>
       </div>
     </div>
+    <!-- Вставляем компонент корзины -->
   </div>
 </template>
 <script>
+import flowerData from "@/assets/flowers.json";
+import CartView from "@/views/CartView.vue";
 export default {
   data() {
     return {
-      products: [
-        {
-          id: 1,
-          name: "авторский букет",
-          description: "Это продукт 1. Описание продукта 1.",
-          image: "..assets/rose.jpg"
-        },
-        {
-          id: 2,
-          name: "Продукт 2",
-          description: "Это продукт 2. Описание продукта 2."
-        },
-        {
-          id: 3,
-          name: "Продукт 3",
-          description: "Это продукт 3. Описание продукта 3."
-        },
-        {
-          id: 4,
-          name: "Продукт 4",
-          description: "Это продукт 4. Описание продукта 4."
-        },
-        {
-          id: 5,
-          name: "Продукт 5",
-          description: "Это продукт 5. Описание продукта 5."
-        },
-        {
-          id: 6,
-          name: "Продукт 6",
-          description: "Это продукт 6. Описание продукта 6."
-        },
-        {
-          id: 5,
-          name: "Продукт 5",
-          description: "Это продукт 5. Описание продукта 5."
-        },
-        {
-          id: 6,
-          name: "Продукт 6",
-          description: "Это продукт 6. Описание продукта 6."
-        },
-        {
-          id: 5,
-          name: "Продукт 5",
-          description: "Это продукт 5. Описание продукта 5."
-        },
-        {
-          id: 6,
-          name: "Продукт 6",
-          description: "Это продукт 6. Описание продукта 6."
-        }
-      ]
+      products: flowerData,
+      cart: [], // Инициализируем корзину пустым массивом
     };
-  }
-}
+  },
+  methods: {
+    isInCart(itemId) {
+      if (!localStorage.getItem("cart")) {
+        localStorage.setItem("cart", JSON.stringify([]));
+      }
+      const cartItem = this.cart.find(({ id }) => id === itemId);
+      return Boolean(cartItem);
+    },
+    addToCart(itemId) {
+      const item = this.products.find(({ id }) => id === itemId);
+      if (!localStorage.getItem("cart")) {
+        localStorage.setItem("cart", JSON.stringify([]));
+      }
+      const cartItems = JSON.parse(localStorage.getItem("cart"));
+      cartItems.push(item);
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      this.cart = JSON.parse(localStorage.getItem("cart"));
+    },
+    removeFromCart(itemId) {
+      const cartItems = JSON.parse(localStorage.getItem("cart"));
+      const index = cartItems.findIndex(({ id }) => id === itemId);
+      cartItems.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      this.cart = JSON.parse(localStorage.getItem("cart"));
+    },
+  },
+};
 </script>
 <style>
 .product-list {

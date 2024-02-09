@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Роза",
+    "description": "Красная роза",
+    "image": "../assets/rose.jpg",
+    "price": 10.99,
+    "quantity": 50
+  },
+  {
+    "id": 2,
+    "name": "Тюльпан",
+    "description": "Белый тюльпан",
+    "image": "tulip.jpg",
+    "price": 8.99,
+    "quantity": 30
+  },
+  {
+    "id": 3,
+    "name": "Лилия",
+    "description": "Оранжевая лилия",
+    "image": "lily.jpg",
+    "price": 12.99,
+    "quantity": 20
+  },
+  {
+    "id": 4,
+    "name": "Подсолнух",
+    "description": "Желтый подсолнух",
+    "image": "sunflower.jpg",
+    "price": 14.99,
+    "quantity": 40
+  },
+  {
+    "id": 5,
+    "name": "хрезантема",
+    "description": "Оранжевая лилия",
+    "image": "lily.jpg",
+    "price": 12.99,
+    "quantity": 20
+  },
+  {
+    "id": 6,
+    "name": "турбан",
+    "description": "Оранжевая лилия",
+    "image": "lily.jpg",
+    "price": 12.99,
+    "quantity": 20
+  }
+]

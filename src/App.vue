@@ -36,11 +36,6 @@ export default {
 </script>
 
 <style scoped>
-.main-content {
-  padding: 10px;
-
-}
-
 .main-window-search-container {
   top: 0;
   width: 100%;
