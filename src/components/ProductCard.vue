@@ -1,10 +1,7 @@
-<script setup>
-
-</script>
 <template>
   <div class="product-list">
     <div class="product-item" v-for="product in products" :key="product.id">
-      <img :src="product.image" alt="Product Image" class="product-image" />
+      <img src="../assets/rose.jpg" alt="Product Image" class="product-image"/>
       <div class="product-details">
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
@@ -20,9 +17,9 @@ export default {
       products: [
         {
           id: 1,
-          name: "Продукт 1",
+          name: "авторский букет",
           description: "Это продукт 1. Описание продукта 1.",
-          image: "@/assets/logo.svg"
+          image: "..assets/rose.jpg"
         },
         {
           id: 2,
@@ -78,8 +75,8 @@ export default {
 .product-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Выравнивание карточек между промежутками */
-  padding: 10px;
+  justify-content: space-around;
+  overflow: hidden;
 }
 
 .product-item {

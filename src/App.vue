@@ -14,17 +14,21 @@
   </div>
 </template>
 
-
 <script>
-import { RouterLink } from 'vue-router';
 export default {
   data() {
     return {
       searchText: '',
+      products: [ /* Замените это на ваши реальные данные продуктов */ ],
+      searchResults: [],
     };
   },
   methods: {
     performSearch() {
+      // Простой пример поиска по имени продукта
+      this.searchResults = this.products.filter(product =>
+          product.name.toLowerCase().includes(this.searchText.toLowerCase())
+      );
       console.log('Выполняется поиск:', this.searchText);
     },
   },
@@ -32,11 +36,18 @@ export default {
 </script>
 
 <style scoped>
+.main-content {
+  padding: 10px;
+
+}
 
 .main-window-search-container {
-  width: 100%; /* Занимает всю ширину */
+  top: 0;
+  width: 100%;
   display: flex;
   align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .main-window-search-container input {
@@ -57,8 +68,6 @@ export default {
 }
 
 .main-window-template {
-
-  display: grid;
   grid-template-rows: 10vh 80vh 10vh;
   align-items: center;
   align-content: center;
