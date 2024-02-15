@@ -1,35 +1,32 @@
 <template>
   <div class="product-list">
-    <div class="product-item" v-for="product in products" :key="product.id">
+    <div class="product-item" v-for="product in displayedProducts" :key="product.id">
       <img src="../assets/rose.jpg" alt="Product Image" class="product-image"/>
       <div class="product-details">
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
         <p>Цена: {{ product.price }} руб.</p>
-        <button @click="addToCart(product.id)">Добавить в корзину</button>
+        <div class="quantity-controls">
+          <button @click="removeFromCart(product.id)">-</button>
+          <span>{{ }}</span>
+          <button @click="addToCart(product.id)">+</button>
+        </div>
       </div>
     </div>
-    <!-- Вставляем компонент корзины -->
   </div>
 </template>
+
 <script>
+import {mapGetters, mapMutations, mapState} from 'vuex';
 import flowerData from "@/assets/flowers.json";
-import CartView from "@/views/CartView.vue";
 export default {
   data() {
     return {
       products: flowerData,
-      cart: [], // Инициализируем корзину пустым массивом
+      //cart: [],
     };
   },
   methods: {
-    isInCart(itemId) {
-      if (!localStorage.getItem("cart")) {
-        localStorage.setItem("cart", JSON.stringify([]));
-      }
-      const cartItem = this.cart.find(({ id }) => id === itemId);
-      return Boolean(cartItem);
-    },
     addToCart(itemId) {
       const item = this.products.find(({ id }) => id === itemId);
       if (!localStorage.getItem("cart")) {
@@ -48,8 +45,24 @@ export default {
       this.cart = JSON.parse(localStorage.getItem("cart"));
     },
   },
+  computed: {
+    ...mapGetters(['getCartItemQuantity']),
+    ...mapState(['searchText']),
+    displayedProducts() {
+      if (this.searchText.trim() === '') {
+        return this.products; // Показываем все продукты, если поле поиска пусто
+      } else {
+        // Используем метод filter для отображения только результатов поиска
+        return this.products.filter(product =>
+            product.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+            product.description.toLowerCase().includes(this.searchText.toLowerCase())
+        );
+      }
+    },
+  },
 };
 </script>
+
 <style>
 .product-list {
   display: flex;

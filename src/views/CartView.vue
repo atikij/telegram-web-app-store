@@ -1,22 +1,26 @@
 <template>
   <div class="cart">
     <h1>Корзина</h1>
-    <div v-for="(c, index) in cart" :key="c.id" class="cart-item">
+    <div v-for="(group, groupId) in groupedCart" :key="groupId" class="cart-item">
       <img src="../assets/rose.jpg" alt="Product Image" class="cart-image" />
       <div class="cart-details">
-        <h3>{{ c.name }}</h3>
-        <p>Цена: {{ c.price }} руб.</p>
-        <button @click="removeFromCart(index)">Удалить из корзины</button>
+        <h3>{{ group[0].name }}</h3>
+        <p>Цена: {{ group[0].price }} руб.</p>
+        <p>Количество: {{ group.length }}</p>
+        <button @click="removeFromCart(group[0].id)">Удалить из корзины</button>
       </div>
     </div>
     <div class="total">
-      <p>Общая сумма: {{}} руб.</p>
+      <p>Общая сумма: {{ getTotalPrice() }} руб.</p>
+    </div>
+    <div class="pay">
+      <button @click="MakingPayment()">Оплатить</button>
     </div>
   </div>
 </template>
 
 <script>
-import flowerData from "@/assets/flowers.json";
+//import axios from '@/services/axios.js';
 export default {
   name: "Cart",
   data() {
@@ -24,7 +28,25 @@ export default {
       cart: [],
     };
   },
+  computed: {
+    groupedCart() {
+      // Группировка элементов корзины по их идентификатору
+      const grouped = {};
+      this.cart.forEach(item => {
+        const groupId = item.id;
+        if (!grouped[groupId]) {
+          grouped[groupId] = [];
+        }
+        grouped[groupId].push(item);
+      });
+      return grouped;
+    },
+  },
   methods: {
+    getTotalPrice() {
+      // вычислите общую сумму
+      return this.cart.reduce((total, item) => total + item.price, 0);
+    },
     removeFromCart(itemId) {
       const cartItems = JSON.parse(localStorage.getItem("cart"));
       const index = cartItems.findIndex(({ id }) => id === itemId);

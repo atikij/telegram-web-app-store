@@ -1,7 +1,7 @@
 <template>
   <div class="main-window-template">
     <div class="main-window-search-container">
-      <input type="text" v-model="searchText" placeholder="Поиск" />
+      <input type="text" v-model = "searchText" placeholder = "Поиск" />
       <button @click="performSearch">Искать</button>
     </div>
     <div class="main-content">
@@ -15,27 +15,43 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 export default {
+  computed: {
+    searchText: {
+      get() {
+        return this.$store.state.searchText;
+      },
+      set(value) {
+        this.localSearchText = value;
+      },
+    },
+  },
+  methods:{
+    ...mapMutations(['setSearchText']),
+  },
+  watch:{
+    localSearchText(newText) {
+      // Вызовите мутацию для установки значения searchText в хранилище
+      this.setSearchText(newText);
+      // Дополнительные действия, если необходимо
+    },
+  },
   data() {
     return {
-      searchText: '',
-      products: [ /* Замените это на ваши реальные данные продуктов */ ],
       searchResults: [],
+      localSearchText: '',
     };
-  },
-  methods: {
-    performSearch() {
-      // Простой пример поиска по имени продукта
-      this.searchResults = this.products.filter(product =>
-          product.name.toLowerCase().includes(this.searchText.toLowerCase())
-      );
-      console.log('Выполняется поиск:', this.searchText);
-    },
   },
 };
 </script>
 
 <style scoped>
+.main-content {
+  flex: 1; /* Занимает все доступное пространство */
+  margin-bottom: 50px; /* Установите высоту вашего навигационного блока */
+}
+
 .main-window-search-container {
   top: 0;
   width: 100%;
