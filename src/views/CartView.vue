@@ -6,8 +6,11 @@
       <div class="cart-details">
         <h3>{{ group[0].name }}</h3>
         <p>Цена: {{ group[0].price }} руб.</p>
-        <p>Количество: {{ group.length }}</p>
-        <button @click="removeFromCart(group[0].id)">Удалить из корзины</button>
+        <div class="quantity-controls">
+        <button @click="removeFromCart(group[0].id)">-</button>
+        <p>{{ group.reduce((total, item) => total + item.quantity, 0) }}</p>
+        <button @click="addToCart(group[0].id)">+</button>
+        </div>
       </div>
     </div>
     <div class="total">
@@ -20,11 +23,13 @@
 </template>
 
 <script>
-//import axios from '@/services/axios.js';
+import flowerData from "@/assets/flowers.json";
+
 export default {
   name: "Cart",
   data() {
     return {
+      products: flowerData,
       cart: [],
     };
   },
@@ -45,14 +50,47 @@ export default {
   methods: {
     getTotalPrice() {
       // вычислите общую сумму
-      return this.cart.reduce((total, item) => total + item.price, 0);
+      return this.cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    },
+    addToCart(itemId) {
+      const item = this.products.find(({ id }) => id === itemId);
+      if (!localStorage.getItem("cart")) {
+        localStorage.setItem("cart", JSON.stringify([]));
+      }
+      const cartItems = JSON.parse(localStorage.getItem("cart"));
+      const existingItem = cartItems.find(cartItem => cartItem.id === itemId);
+
+      if (existingItem) {
+        // Если товар уже в корзине, увеличиваем количество
+        existingItem.quantity += 1;
+      } else {
+        // Если товара нет в корзине, добавляем новый элемент с начальным количеством 1
+        item.quantity = 1;
+        cartItems.push(item);
+      }
+
+      // Обновляем количество товаров в локальном хранилище
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      this.cart = JSON.parse(localStorage.getItem("cart"));
     },
     removeFromCart(itemId) {
       const cartItems = JSON.parse(localStorage.getItem("cart"));
       const index = cartItems.findIndex(({ id }) => id === itemId);
-      cartItems.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cartItems));
-      this.cart = JSON.parse(localStorage.getItem("cart"));
+
+      if (index !== -1) {
+        const existingItem = cartItems[index];
+        if (existingItem.quantity > 1) {
+          // Если у товара количество больше 1, уменьшаем количество
+          existingItem.quantity -= 1;
+        } else {
+          // Если у товара количество равно 1 или меньше, удаляем его из корзины
+          cartItems.splice(index, 1);
+        }
+
+        // Обновляем количество товаров в локальном хранилище
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+        this.cart = JSON.parse(localStorage.getItem("cart"));
+      }
     },
     getCart() {
       if (!localStorage.getItem("cart")) {
@@ -67,6 +105,7 @@ export default {
 };
 </script>
 
+
 <style scoped>
 .cart {
   max-width: 800px;
@@ -75,6 +114,8 @@ export default {
 
 .cart-item {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #ddd;
@@ -101,7 +142,12 @@ export default {
   margin: 0;
 }
 
-button {
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-controls button {
   background-color: #3498db;
   color: #fff;
   border: none;
@@ -111,8 +157,14 @@ button {
   transition: background-color 0.3s;
 }
 
-button:hover {
+.quantity-controls button:hover {
   background-color: #267bb5;
+}
+
+.quantity-controls span {
+  margin: 0 10px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .total {
@@ -122,3 +174,4 @@ button:hover {
   font-weight: bold;
 }
 </style>
+

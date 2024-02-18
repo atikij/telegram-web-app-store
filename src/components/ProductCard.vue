@@ -1,4 +1,18 @@
 <template>
+  <div class="categories">
+    <button @click="filterProducts('Монобукеты')">
+      <img src="https://cdn-icons-png.flaticon.com/512/1261/1261146.png" alt="Монобукеты" class="category-icon" />
+      <span>Монобукеты</span>
+    </button>
+    <button @click="filterProducts('Авторские букеты')">
+      <img src="https://cdn-icons-png.flaticon.com/512/2438/2438198.png" alt="Авторские букеты" class="category-icon"/>
+      <span>Авторские букеты</span>
+    </button>
+    <button @click="filterProducts('Букеты в корзинках')">
+      <img src="https://cdn-icons-png.flaticon.com/512/4148/4148023.png" alt="Букеты в корзинках" class="category-icon"/>
+      <span>Букеты в корзинках</span>
+    </button>
+  </div>
   <div class="product-list">
     <div class="product-item" v-for="product in displayedProducts" :key="product.id">
       <img src="../assets/rose.jpg" alt="Product Image" class="product-image"/>
@@ -8,7 +22,7 @@
         <p>Цена: {{ product.price }} руб.</p>
         <div class="quantity-controls">
           <button @click="removeFromCart(product.id)">-</button>
-          <span>{{ }}</span>
+          <span>{{getProductQuantity(product.id) || 0}}</span>
           <button @click="addToCart(product.id)">+</button>
         </div>
       </div>
@@ -17,13 +31,13 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations, mapState} from 'vuex';
+import { mapState } from 'vuex';
 import flowerData from "@/assets/flowers.json";
 export default {
   data() {
     return {
       products: flowerData,
-      //cart: [],
+      cart:[],
     };
   },
   methods: {
@@ -33,20 +47,47 @@ export default {
         localStorage.setItem("cart", JSON.stringify([]));
       }
       const cartItems = JSON.parse(localStorage.getItem("cart"));
-      cartItems.push(item);
+      const existingItem = cartItems.find(cartItem => cartItem.id === itemId);
+
+      if (existingItem) {
+        // Если товар уже в корзине, увеличиваем количество
+        existingItem.quantity += 1;
+      } else {
+        // Если товара нет в корзине, добавляем новый элемент с начальным количеством 1
+        item.quantity = 1;
+        cartItems.push(item);
+      }
+
+      // Обновляем количество товаров в локальном хранилище
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
     },
     removeFromCart(itemId) {
       const cartItems = JSON.parse(localStorage.getItem("cart"));
       const index = cartItems.findIndex(({ id }) => id === itemId);
-      cartItems.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cartItems));
-      this.cart = JSON.parse(localStorage.getItem("cart"));
+
+      if (index !== -1) {
+        const existingItem = cartItems[index];
+        if (existingItem.quantity > 1) {
+          // Если у товара количество больше 1, уменьшаем количество
+          existingItem.quantity -= 1;
+        } else {
+          // Если у товара количество равно 1 или меньше, удаляем его из корзины
+          cartItems.splice(index, 1);
+        }
+
+        // Обновляем количество товаров в локальном хранилище
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+        this.cart = JSON.parse(localStorage.getItem("cart"));
+      }
+    },
+    getProductQuantity(itemId) {
+      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      const item = cartItems.find(({ id }) => id === itemId);
+      return item ? item.quantity : 0;
     },
   },
   computed: {
-    ...mapGetters(['getCartItemQuantity']),
     ...mapState(['searchText']),
     displayedProducts() {
       if (this.searchText.trim() === '') {
@@ -64,6 +105,26 @@ export default {
 </script>
 
 <style>
+.categories {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.categories button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.category-icon {
+  width: 50%; /* Установите желаемую ширину и высоту для иконки */
+  height: 50%;
+}
+
 .product-list {
   display: flex;
   flex-wrap: wrap;
@@ -117,9 +178,35 @@ export default {
   }
 }
 
-
 ::-webkit-scrollbar {
-  width: 0px; /* Ширина полосы прокрутки */
+  width: 0; /* Ширина полосы прокрутки */
+}
+
+ .quantity-controls {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: 10px;
+ }
+
+.quantity-controls button {
+  background-color: #333333;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.quantity-controls button:hover {
+  background-color: #ccc;
+}
+
+.quantity-controls span {
+  margin: 0 5px;
 }
 </style>
 

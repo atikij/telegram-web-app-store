@@ -1,15 +1,18 @@
 <template>
   <div class="main-window-template">
     <div class="main-window-search-container">
-      <input type="text" v-model = "searchText" placeholder = "Поиск" />
-      <button @click="performSearch">Искать</button>
+      <input type="text" v-model = "searchText" placeholder = "Поиск" class="search-input" />
     </div>
     <div class="main-content">
       <router-view/>
     </div>
     <div class="main-window-navigation">
-      <RouterLink to="/home" class="nav-item">главная</RouterLink>
-      <RouterLink to="/cart" class="nav-item">корзина</RouterLink>
+      <RouterLink to="/" class="nav-item">
+        <img src="https://i.pinimg.com/originals/ae/2f/01/ae2f014eb3b1772144de744ce424da6a.png" alt="Home Icon" class="nav-icon" />
+      </RouterLink>
+      <RouterLink to="/cart" class="nav-item">
+        <img src="https://grizly.club/uploads/posts/2022-12/1670822449_grizly-club-p-ikonka-korzina-png-1.png" alt="Home Icon" class="nav-icon" />
+      </RouterLink>
     </div>
   </div>
 </template>
@@ -52,12 +55,18 @@ export default {
   margin-bottom: 50px; /* Установите высоту вашего навигационного блока */
 }
 
+.nav-icon {
+  width: 100%; /* Установите желаемую ширину и высоту для иконки */
+  height: 24px;
+}
+
 .main-window-search-container {
   top: 0;
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
   box-sizing: border-box;
 }
 
@@ -108,6 +117,4 @@ export default {
 .nav-item:hover {
   background-color: #ddd;
 }
-
-
 </style>

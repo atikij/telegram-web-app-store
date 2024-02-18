@@ -5,7 +5,8 @@
     "description": "Красная роза",
     "image": "../assets/rose.jpg",
     "price": 10.99,
-    "quantity": 50
+    "quantity": 1,
+    "category": "Монобукеты"
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "description": "Белый тюльпан",
     "image": "tulip.jpg",
     "price": 8.99,
-    "quantity": 30
+    "quantity": 1,
+    "category": "Монобукеты"
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "description": "Оранжевая лилия",
     "image": "lily.jpg",
     "price": 12.99,
-    "quantity": 20
+    "quantity": 1,
+    "category": "Монобукеты"
   },
   {
     "id": 4,
@@ -29,22 +32,61 @@
     "description": "Желтый подсолнух",
     "image": "sunflower.jpg",
     "price": 14.99,
-    "quantity": 40
+    "quantity": 1,
+    "category": "Монобукеты"
   },
   {
     "id": 5,
-    "name": "хрезантема",
-    "description": "Оранжевая лилия",
-    "image": "lily.jpg",
-    "price": 12.99,
-    "quantity": 20
+    "name": "Хризантема",
+    "description": "Розовая хризантема",
+    "image": "chrysanthemum.jpg",
+    "price": 11.99,
+    "quantity": 1,
+    "category": "Авторские букеты"
   },
   {
     "id": 6,
-    "name": "турбан",
-    "description": "Оранжевая лилия",
-    "image": "lily.jpg",
-    "price": 12.99,
-    "quantity": 20
+    "name": "Тюльпан",
+    "description": "Красный тюльпан",
+    "image": "tulip2.jpg",
+    "price": 9.99,
+    "quantity": 1,
+    "category": "Авторские букеты"
+  },
+  {
+    "id": 7,
+    "name": "Роза",
+    "description": "Белая роза",
+    "image": "rose2.jpg",
+    "price": 13.99,
+    "quantity": 1,
+    "category": "Авторские букеты"
+  },
+  {
+    "id": 8,
+    "name": "Лилия",
+    "description": "Желтая лилия",
+    "image": "lily2.jpg",
+    "price": 15.99,
+    "quantity": 1,
+    "category": "Букеты в корзинках"
+  },
+  {
+    "id": 9,
+    "name": "Подсолнух",
+    "description": "Красный подсолнух",
+    "image": "sunflower2.jpg",
+    "price": 16.99,
+    "quantity": 1,
+    "category": "Букеты в корзинках"
+  },
+  {
+    "id": 10,
+    "name": "Тюльпан",
+    "description": "Оранжевый тюльпан",
+    "image": "tulip3.jpg",
+    "price": 14.99,
+    "quantity": 1,
+    "category": "Букеты в корзинках"
   }
 ]
