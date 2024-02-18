@@ -91,6 +91,7 @@ export default {
   grid-template-rows: 10vh 80vh 10vh;
   align-items: center;
   align-content: center;
+  background-color: whitesmoke;
 }
 
 .main-window-navigation {
@@ -111,6 +112,7 @@ export default {
   color: #333;
   padding: 5px 10px;
   border-radius: 5px;
+  height: 100%;
   transition: background-color 0.3s;
 }
 

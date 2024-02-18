@@ -15,7 +15,7 @@
   </div>
   <div class="product-list">
     <div class="product-item" v-for="product in displayedProducts" :key="product.id">
-      <img src="../assets/rose.jpg" alt="Product Image" class="product-image"/>
+      <img :src="product.image" alt="Product Image" class="product-image"/>
       <div class="product-details">
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
@@ -109,6 +109,7 @@ export default {
   display: flex;
   justify-content: space-around;
   margin: 20px 0;
+
 }
 
 .categories button {
@@ -134,7 +135,7 @@ export default {
 
 .product-item {
   width: calc(33.33% - 20px); /* Уменьшено расстояние между карточками */
-  background-color: black;
+  background-color: gainsboro;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 0 0 20px 0;
@@ -148,24 +149,13 @@ export default {
 
 .product-image {
   width: 100%;
-  height: auto;
+  height:20vh;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
 
 .product-details {
   padding: 15px;
-}
-
-/* Добавлен стиль для кнопки "Добавить в корзину" (может быть изменен в зависимости от ваших потребностей) */
-.product-item button {
-  background-color: blue;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .product-item button:hover {
@@ -182,23 +172,21 @@ export default {
   width: 0; /* Ширина полосы прокрутки */
 }
 
- .quantity-controls {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   margin-top: 10px;
- }
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  overflow: hidden;
+  border: 2px solid gray;
+  border-radius: 10px;
+}
 
 .quantity-controls button {
-  background-color: #333333;
+  background-color: gainsboro;
   border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 16px;
-  margin: 0 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  width: 100%;
+  height: 4vh;
 }
 
 .quantity-controls button:hover {
@@ -207,6 +195,14 @@ export default {
 
 .quantity-controls span {
   margin: 0 5px;
+}
+
+.quantity-controls span {
+  padding: 8px 12px;
+}
+
+.categories span{
+  padding: 12px;
 }
 </style>
 
