@@ -1,6 +1,7 @@
 <template>
   <div class="main-window-template">
     <div class="main-window-search-container">
+      <img src="https://wp-club.ru/wp-content/uploads/2023/09/noun_41373.png" alt="search icon" class="search-icon">
       <input type="text" v-model = "searchText" placeholder = "Поиск" class="search-input" />
     </div>
     <div class="main-content">
@@ -50,6 +51,16 @@ export default {
 </script>
 
 <style scoped>
+
+
+.search-icon {
+  width: 1.5rem; /* Установите нужную ширину */
+  //height: 20%; /* Установите нужную высоту */
+  margin-right: 10px; /* Установите нужный отступ справа */
+  opacity: 0.7; /* Настройте прозрачность, если нужно */
+}
+
+
 .main-content {
   flex: 1; /* Занимает все доступное пространство */
   margin-bottom: 50px; /* Установите высоту вашего навигационного блока */
@@ -71,6 +82,7 @@ export default {
 }
 
 .main-window-search-container input {
+  height: 5rex;
   flex: 1; /* Занимает доступное пространство */
   padding: 8px;
   margin-right: 10px;

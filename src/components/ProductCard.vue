@@ -1,6 +1,6 @@
 <template>
   <div class="categories">
-    <button @click="filterProducts('Монобукеты')">
+    <button  @click="filterProducts('Монобукеты')">
       <img src="https://cdn-icons-png.flaticon.com/512/1261/1261146.png" alt="Монобукеты" class="category-icon" />
       <span>Монобукеты</span>
     </button>
@@ -12,6 +12,10 @@
       <img src="https://cdn-icons-png.flaticon.com/512/4148/4148023.png" alt="Букеты в корзинках" class="category-icon"/>
       <span>Букеты в корзинках</span>
     </button>
+    <button @click="filterProducts('')">
+      <img src="https://cdn-icons-png.flaticon.com/512/7348/7348543.png" alt="Все категории" class="category-icon"/>
+      <span>Все товары</span>
+    </button>
   </div>
   <div class="product-list">
     <div class="product-item" v-for="product in displayedProducts" :key="product.id">
@@ -19,7 +23,7 @@
       <div class="product-details">
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
-        <p>Цена: {{ product.price }} руб.</p>
+        <p>{{ product.price }}₽</p>
         <div class="quantity-controls">
           <button @click="removeFromCart(product.id)">-</button>
           <span>{{getProductQuantity(product.id) || 0}}</span>
@@ -38,9 +42,13 @@ export default {
     return {
       products: flowerData,
       cart:[],
+      selectedCategory: null,
     };
   },
   methods: {
+    filterProducts(category) {
+      this.selectedCategory = category;
+    },
     addToCart(itemId) {
       const item = this.products.find(({ id }) => id === itemId);
       if (!localStorage.getItem("cart")) {
@@ -90,15 +98,22 @@ export default {
   computed: {
     ...mapState(['searchText']),
     displayedProducts() {
-      if (this.searchText.trim() === '') {
-        return this.products; // Показываем все продукты, если поле поиска пусто
-      } else {
-        // Используем метод filter для отображения только результатов поиска
-        return this.products.filter(product =>
+      let filteredProducts = this.products;
+
+      // Фильтрация по категории
+      if (this.selectedCategory) {
+        filteredProducts = filteredProducts.filter(product => product.category === this.selectedCategory);
+      }
+
+      // Фильтрация по тексту поиска
+      if (this.searchText.trim() !== '') {
+        filteredProducts = filteredProducts.filter(product =>
             product.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
             product.description.toLowerCase().includes(this.searchText.toLowerCase())
         );
       }
+
+      return filteredProducts;
     },
   },
 };
@@ -108,7 +123,7 @@ export default {
 .categories {
   display: flex;
   justify-content: space-around;
-  margin: 20px 0;
+  margin-top: 5%;
 
 }
 
@@ -119,6 +134,10 @@ export default {
   cursor: pointer;
   background: none;
   border: none;
+}
+
+.categories span{
+  font-family: Roboto,sans-serif;
 }
 
 .category-icon {
@@ -157,11 +176,6 @@ export default {
 .product-details {
   padding: 15px;
 }
-
-.product-item button:hover {
-  background-color: darkblue;
-}
-
 @media screen and (max-width: 768px) {
   .product-item {
     width: calc(50% - 20px); /* Для экранов с шириной до 768px, уменьшаем количество карточек в ряду */

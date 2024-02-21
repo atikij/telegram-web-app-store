@@ -3,8 +3,8 @@
     "id": 1,
     "name": "Роза",
     "description": "Красная роза",
-    "image": "https://static.tildacdn.com/tild3234-3139-4632-b865-373038623932/3137.jpg",
-    "price": 10.99,
+    "image": "https://mykaleidoscope.ru/uploads/posts/2022-06/1656333853_34-mykaleidoscope-ru-p-nestandartnie-buketi-tsvetov-krasivo-foto-34.jpg",
+    "price": 300,
     "quantity": 1,
     "category": "Монобукеты"
   },
@@ -12,8 +12,8 @@
     "id": 2,
     "name": "Тюльпан",
     "description": "Белый тюльпан",
-    "image": "https://w.forfun.com/fetch/86/8626e88fa622783ff02c06b982893ed9.jpeg",
-    "price": 8.99,
+    "image": "https://букет.рф/wp-content/uploads/2019/04/bryzgi-lubvi-1.jpg",
+    "price": 150,
     "quantity": 1,
     "category": "Монобукеты"
   },
@@ -22,7 +22,7 @@
     "name": "Лилия",
     "description": "Оранжевая лилия",
     "image": "https://img.razrisyika.ru/kart/57/1200/227472-bukety-cvetov-krasivye-krupnye-1.jpg",
-    "price": 12.99,
+    "price": 200,
     "quantity": 1,
     "category": "Монобукеты"
   },
@@ -30,8 +30,8 @@
     "id": 4,
     "name": "Подсолнух",
     "description": "Желтый подсолнух",
-    "image": "https://mykaleidoscope.ru/uploads/posts/2022-06/1656333853_34-mykaleidoscope-ru-p-nestandartnie-buketi-tsvetov-krasivo-foto-34.jpg",
-    "price": 14.99,
+    "image": "https://dostavka.kami-flow.ru/wp-content/uploads/2022/06/rozovyy-zefir.jpg",
+    "price": 250,
     "quantity": 1,
     "category": "Монобукеты"
   },
@@ -40,7 +40,7 @@
     "name": "Хризантема",
     "description": "Розовая хризантема",
     "image": "https://kaktusflo.ru/_mod_files/ce_images/eshop/586e0d6adfade_30.jpg",
-    "price": 11.99,
+    "price": 350,
     "quantity": 1,
     "category": "Авторские букеты"
   },
@@ -49,7 +49,7 @@
     "name": "Тюльпан",
     "description": "Красный тюльпан",
     "image": "https://www.kartinki-cvetov.ru/images/bukety/buket-43.jpg",
-    "price": 9.99,
+    "price": 120,
     "quantity": 1,
     "category": "Авторские букеты"
   },
