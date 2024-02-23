@@ -57,7 +57,7 @@
     "id": 7,
     "name": "Роза",
     "description": "Белая роза",
-    "image": "rose2.jpg",
+    "image": "",
     "price": 13.99,
     "quantity": 1,
     "category": "Авторские букеты"
@@ -66,7 +66,7 @@
     "id": 8,
     "name": "Лилия",
     "description": "Желтая лилия",
-    "image": "lily2.jpg",
+    "image": "",
     "price": 15.99,
     "quantity": 1,
     "category": "Букеты в корзинках"
@@ -75,7 +75,7 @@
     "id": 9,
     "name": "Подсолнух",
     "description": "Красный подсолнух",
-    "image": "sunflower2.jpg",
+    "image": "",
     "price": 16.99,
     "quantity": 1,
     "category": "Букеты в корзинках"
@@ -84,7 +84,7 @@
     "id": 10,
     "name": "Тюльпан",
     "description": "Оранжевый тюльпан",
-    "image": "tulip3.jpg",
+    "image": "",
     "price": 14.99,
     "quantity": 1,
     "category": "Букеты в корзинках"

@@ -19,7 +19,7 @@
   </div>
   <div class="product-list">
     <div class="product-item" v-for="product in displayedProducts" :key="product.id">
-      <img :src="product.image" alt="Product Image" class="product-image"/>
+      <img :src="product.image || notFoundImage" alt="Product Image" class="product-image"/>
       <div class="product-details">
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
@@ -43,6 +43,7 @@ export default {
       products: flowerData,
       cart:[],
       selectedCategory: null,
+      notFoundImage :'https://yt3.googleusercontent.com/iRLpuvr-WoAkDmOmXQiVnk7Gf4knJ6_OmIqZRmal4FeFxwbPLkMwIWm4QZlvH9t2GojQWZ4P=s900-c-k-c0x00ffffff-no-rj'
     };
   },
   methods: {
@@ -69,6 +70,8 @@ export default {
       // Обновляем количество товаров в локальном хранилище
       localStorage.setItem("cart", JSON.stringify(cartItems));
       this.cart = JSON.parse(localStorage.getItem("cart"));
+      //обновление количества товаров при нажатии
+      this.$forceUpdate();
     },
     removeFromCart(itemId) {
       const cartItems = JSON.parse(localStorage.getItem("cart"));
@@ -87,6 +90,8 @@ export default {
         // Обновляем количество товаров в локальном хранилище
         localStorage.setItem("cart", JSON.stringify(cartItems));
         this.cart = JSON.parse(localStorage.getItem("cart"));
+        //обновление количества товаров при нажатии
+        this.$forceUpdate();
       }
     },
     getProductQuantity(itemId) {

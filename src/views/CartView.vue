@@ -132,7 +132,7 @@ export default {
 <style scoped>
 .delete button {
   margin-top: 15px;
-  position: fixed;
+  position: absolute;
   background-color: #DCDCDC;
   border: none;
   font-size: 28px;
@@ -161,12 +161,9 @@ export default {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-.pay span{
-  //font-family: Berkshire swash,sans-serif;
-}
 
 .cart {
-  max-width: 800px;
+  //max-width: 800px;
   padding: 10px;
 }
 
