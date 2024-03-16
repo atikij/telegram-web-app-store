@@ -4,15 +4,15 @@
       <img src="https://cdn-icons-png.flaticon.com/512/1261/1261146.png" alt="Монобукеты" class="category-icon" />
       <span>Монобукеты</span>
     </button>
-    <button @click="filterProducts('Авторские букеты')">
+    <button @click="filterProducts('Авторские_букеты')">
       <img src="https://cdn-icons-png.flaticon.com/512/2438/2438198.png" alt="Авторские букеты" class="category-icon"/>
       <span>Авторские букеты</span>
     </button>
-    <button @click="filterProducts('Букеты в корзинках')">
+    <button @click="filterProducts('Цветы_в_коробке')">
       <img src="https://cdn-icons-png.flaticon.com/512/4148/4148023.png" alt="Букеты в корзинках" class="category-icon"/>
       <span>Букеты в корзинках</span>
     </button>
-    <button @click="filterProducts('')">
+    <button @click="filterProducts(null)">
       <img src="https://cdn-icons-png.flaticon.com/512/7348/7348543.png" alt="Все категории" class="category-icon"/>
       <span>Все товары</span>
     </button>
@@ -25,9 +25,9 @@
         <p>{{ product.description }}</p>
         <p>{{ product.price }}₽</p>
         <div class="quantity-controls">
-          <button @click="removeFromCart(product.id)">-</button>
-          <span>{{getProductQuantity(product.id) || 0}}</span>
-          <button @click="addToCart(product.id)">+</button>
+          <button @click="removeFromCart(product.name_english)">-</button>
+          <span>{{getProductQuantity(product.name_english) || 0}}</span>
+          <button @click="addToCart(product.name_english)">+</button>
         </div>
       </div>
     </div>
@@ -37,9 +37,15 @@
 <script>
 import { mapState } from 'vuex';
 import flowerData from "@/assets/flowers.json";
+import axios from "@/services/axios.js";
 export default {
   data() {
     return {
+      goodsData: {
+        unique_categories: [],
+        unique_subcategories: [],
+        goods_list: [],
+      },
       products: flowerData,
       cart:[],
       selectedCategory: null,
@@ -50,13 +56,13 @@ export default {
     filterProducts(category) {
       this.selectedCategory = category;
     },
-    addToCart(itemId) {
-      const item = this.products.find(({ id }) => id === itemId);
+    addToCart(itemNameEnglish) {
+      const item = this.goodsData.goods_list.find(({ name_english }) => name_english === itemNameEnglish);
       if (!localStorage.getItem("cart")) {
         localStorage.setItem("cart", JSON.stringify([]));
       }
       const cartItems = JSON.parse(localStorage.getItem("cart"));
-      const existingItem = cartItems.find(cartItem => cartItem.id === itemId);
+      const existingItem = cartItems.find(cartItem => cartItem.name_english === itemNameEnglish);
 
       if (existingItem) {
         // Если товар уже в корзине, увеличиваем количество
@@ -75,7 +81,7 @@ export default {
     },
     removeFromCart(itemId) {
       const cartItems = JSON.parse(localStorage.getItem("cart"));
-      const index = cartItems.findIndex(({ id }) => id === itemId);
+      const index = cartItems.findIndex(cartItem => cartItem.name_english === itemId);
 
       if (index !== -1) {
         const existingItem = cartItems[index];
@@ -96,14 +102,22 @@ export default {
     },
     getProductQuantity(itemId) {
       const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-      const item = cartItems.find(({ id }) => id === itemId);
+      const item = cartItems.find(cartItem => cartItem.name_english === itemId);
       return item ? item.quantity : 0;
     },
+    async fetchGoodsData() {
+      try {
+        const response = await axios.get('/db');
+        this.goodsData = response.data;
+      } catch (error) {
+        console.error('Ошибка при получении данных:', error);
+      }
+    }
   },
   computed: {
     ...mapState(['searchText']),
     displayedProducts() {
-      let filteredProducts = this.products;
+      let filteredProducts = this.goodsData.goods_list;
 
       // Фильтрация по категории
       if (this.selectedCategory) {
@@ -121,6 +135,9 @@ export default {
       return filteredProducts;
     },
   },
+  mounted() {
+    this.fetchGoodsData();
+  }
 };
 </script>
 
@@ -129,7 +146,8 @@ export default {
   display: flex;
   justify-content: space-around;
   margin-top: 5%;
-
+  overflow: auto; /* Добавляем полосу прокрутки при нехватке места */
+  max-width: 100%; /* Ограничиваем максимальную ширину до 100% ширины родительского контейнера */
 }
 
 .categories button {
@@ -158,6 +176,7 @@ export default {
 }
 
 .product-item {
+  position: relative; /* Относительное позиционирование для корректного позиционирования quantity-controls */
   width: calc(33.33% - 20px); /* Уменьшено расстояние между карточками */
   background-color: gainsboro;
   border-radius: 5px;
@@ -179,9 +198,11 @@ export default {
 }
 
 .product-details {
-  padding: 15px;
+  position: relative; /* Относительное позиционирование для корректного позиционирования quantity-controls */
+  padding: 0 15px 15px 15px;
+  height: 50%;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .product-item {
     width: calc(50% - 20px); /* Для экранов с шириной до 768px, уменьшаем количество карточек в ряду */
   }
@@ -199,7 +220,9 @@ export default {
   overflow: hidden;
   border: 2px solid gray;
   border-radius: 10px;
+  bottom: 0;
 }
+
 
 .quantity-controls button {
   background-color: gainsboro;

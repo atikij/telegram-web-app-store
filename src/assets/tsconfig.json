@@ -1,0 +1,190 @@
+{
+  "unique_categories": [
+    "Цветы_в_коробке",
+    "Монобукеты",
+    "Авторские_букеты"
+  ],
+  "unique_subcategories": [
+    null,
+    "Лилии",
+    "Розы",
+    "Гипсофилы"
+  ],
+  "goods_list": [
+    {
+      "img": [
+        "AgACAgIAAxkBAAIZA2Rejm6SUXCDG8apksg1oQgRbBrJAAJFyTEbkEb4Sl9a--vUCnPZAQADAgADcwADLwQ"
+      ],
+      "name": "самый секси мальчик",
+      "name_english": "samyi_seksi",
+      "category": "Цветы_в_коробке",
+      "subcategory": null,
+      "description": "таких не найти один на миллион",
+      "quantity": 1,
+      "discount": null,
+      "price": 1000
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAAIYmmRejM043KRc2acBg3zghGjMQkoHAAI7yTEbkEb4SiFt3RWczqrVAQADAgADcwADLwQ"
+      ],
+      "name": "monaco_town",
+      "name_english": "monaco_town",
+      "category": "Цветы_в_коробке",
+      "subcategory": null,
+      "description": "квартира в городе",
+      "quantity": 34,
+      "discount": null,
+      "price": 76
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAALHWmXuDGQ57nwT1T2Wn__2H_P6DB8EAAK61jEbE5VwS91_lR5s9yWQAQADAgADeAADNAQ",
+        "AgACAgIAAxkBAALHXGXuDGdVDR7g3DhNvYGexPorCc0VAALk1zEbE5VwS-SsBdQBaXDzAQADAgADeQADNAQ"
+      ],
+      "name": "Malayan",
+      "name_english": "pools",
+      "category": "Цветы_в_коробке",
+      "subcategory": null,
+      "description": "Jdjdjd",
+      "quantity": 990,
+      "discount": null,
+      "price": 89404
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAAIZn2RekNYochT65WUzWyrMf_cN9BK2AAJOyTEbkEb4SvlozZVWct0ZAQADAgADcwADLwQ",
+        "AgACAgIAAxkBAAIZoGRekNZnGm511UPMOPS0E8QWPSZLAAJPyTEbkEb4SoW8QUyaJCRYAQADAgADcwADLwQ",
+        "AgACAgIAAxkBAAIZoWRekNZIrCH2cztmad7rfH_WDMAyAAJQyTEbkEb4SksOBTvj3XryAQADAgADcwADLwQ"
+      ],
+      "name": "хорошая книга",
+      "name_english": "good_book",
+      "category": "Монобукеты",
+      "subcategory": "Лилии",
+      "description": "vv",
+      "quantity": 77,
+      "discount": null,
+      "price": 5
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAAIgeGRg0BQS9fCnz_kMCq2ByIm4LimvAAJ1yzEbMtAAAUvum0ivvtlq2QEAAwIAA3MAAy8E"
+      ],
+      "name": "Розы еще одни",
+      "name_english": "rose_for_something",
+      "category": "Монобукеты",
+      "subcategory": "Розы",
+      "description": "Bejdjrnrb",
+      "quantity": 20,
+      "discount": null,
+      "price": 400
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAAIisGRhOGLJl5M52AOpYejrdPfl56_hAALZxjEbRC74SoWbS1DTqICUAQADAgADcwADLwQ"
+      ],
+      "name": "Оплатами",
+      "name_english": "rose",
+      "category": "Монобукеты",
+      "subcategory": "Розы",
+      "description": "Hdjdndn r",
+      "quantity": 77,
+      "discount": null,
+      "price": 676
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAAImV2Rrg3zefa41kkyrAAFRNNg4TCeoBwACcskxG2JOYUuv7fChdUdwTwEAAwIAA3MAAy8E"
+      ],
+      "name": "Bnnnmm",
+      "name_english": "doghouse",
+      "category": "Монобукеты",
+      "subcategory": "Розы",
+      "description": "Hrjrjrb",
+      "quantity": 1234,
+      "discount": null,
+      "price": 8890.07
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAAKHFGTNfvDLAAG7-pOzKF2XbYDagqAQPQACcMkxGygxcUoQEb5--i_wfAEAAwIAA3MAAy8E"
+      ],
+      "name": "Будильник",
+      "name_english": "clock",
+      "category": "Монобукеты",
+      "subcategory": "Лилии",
+      "description": "Здесь описание",
+      "quantity": 90,
+      "discount": null,
+      "price": 5600
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAAIZHmRejspsuz8vkRTj0cMRt5_XPjnLAAJGyTEbkEb4SguzZ-ahSJCtAQADAgADcwADLwQ"
+      ],
+      "name": "букет который ваня должен",
+      "name_english": "flowers_for_vera",
+      "category": "Монобукеты",
+      "subcategory": "Розы",
+      "description": "ваня я жду",
+      "quantity": 8,
+      "discount": null,
+      "price": 77
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAAIa3GRezWO_ATLh8lQ_qWgz6amnvpP_AALXxjEbRC74Ss5_JRKPSmRdAQADAgADcwADLwQ",
+        "AgACAgIAAxkBAAIa3mRezWkPu8TBnp8mwEAQ6yQqViEqAALYxjEbRC74SrC3kUrK1rpMAQADAgADcwADLwQ",
+        "AgACAgIAAxkBAAIa4GRezW0qvZ_d3emSSMrQWoZhXPwYAALZxjEbRC74SoWbS1DTqICUAQADAgADcwADLwQ",
+        "AgACAgIAAxkBAAIa4mRezXGLYA3JKe6NeS14N6MaMWjrAALaxjEbRC74Su7PHusI7p9KAQADAgADcwADLwQ"
+      ],
+      "name": "Розы Silva Pink",
+      "name_english": "rose_silva_pink",
+      "category": "Монобукеты",
+      "subcategory": "Розы",
+      "description": "красивый букет цветов, шикарный, премиум букет, 50 см.\nофрмление-крафт бумага",
+      "quantity": 5000,
+      "discount": null,
+      "price": 99
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAAIZN2Rej3KUduy1z45nueVfA2ITdL8gAAJHyTEbkEb4Sq9Nca_5P9byAQADAgADcwADLwQ"
+      ],
+      "name": "лучшая пара мира",
+      "name_english": "best_couple",
+      "category": "Монобукеты",
+      "subcategory": "Гипсофилы",
+      "description": "мы лучшие",
+      "quantity": 90,
+      "discount": null,
+      "price": 0
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAAKzJWT7NdFW0bs1Rza57rRB9LHSV0FsAAKyzzEb7oXhS6ln_n22oEE7AQADAgADcwADMAQ"
+      ],
+      "name": "Павел",
+      "name_english": "tape",
+      "category": "Монобукеты",
+      "subcategory": "Гипсофилы",
+      "description": "H",
+      "quantity": 90,
+      "discount": null,
+      "price": 890
+    },
+    {
+      "img": [
+        "AgACAgIAAxkBAAIYhGRejIz6KHKhwQABqnKVWzQcNxNLGAACOskxG5BG-EqQ8IiHt29McQEAAwIAA3MAAy8E"
+      ],
+      "name": "ivan_boy",
+      "name_english": "ivan_boy",
+      "category": "Авторские_букеты",
+      "subcategory": null,
+      "description": "мальчик огонь",
+      "quantity": 100000,
+      "discount": null,
+      "price": 900
+    }
+  ]
+}

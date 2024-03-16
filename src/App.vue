@@ -1,7 +1,7 @@
 <template>
   <div class="main-window-template">
     <div class="main-window-search-container">
-      <img src="https://wp-club.ru/wp-content/uploads/2023/09/noun_41373.png" alt="search icon" class="search-icon">
+      <img src="https://i.pinimg.com/originals/cd/ab/85/cdab85a392e92623afa27de32443379f.png" alt="search icon" class="search-icon">
       <input type="text" v-model = "searchText" placeholder = "Поиск" class="search-input" />
     </div>
     <div class="main-content">
@@ -122,13 +122,14 @@ export default {
 .nav-item {
   text-decoration: none;
   color: #333;
-  padding: 5px 10px;
+  //padding: 5px 10px;
   border-radius: 5px;
   height: 100%;
+  width: ;
   transition: background-color 0.3s;
 }
 
-.nav-item:hover {
+.nav-item:active {
   background-color: #ddd;
 }
 </style>

@@ -2,17 +2,17 @@
   <div class="cart">
     <h1>Корзина {{ getTotalQuantity() }} товаров</h1>
     <div v-for="(group, groupId) in groupedCart" :key="groupId" class="cart-item">
-      <img :src="group[0].image" alt="Product Image" class="cart-image" />
+      <img :src="group[0].image || notFoundImage" alt="Product Image" class="cart-image" />
       <div class="cart-details">
         <h3>{{ group[0].name }}</h3>
         <p>{{ getTotalItemPrice(group) }}₽</p>
         <div class="delete">
-        <button @click="removeFromCartCompletely(group[0].id)">×</button>
+          <button @click="removeFromCartCompletely(group[0].name_english)">×</button>
         </div>
         <div class="quantity-controls-cart">
-        <button @click="removeFromCart(group[0].id)">−</button>
-        <p>{{ group.reduce((total, item) => total + item.quantity, 0) }}</p>
-        <button @click="addToCart(group[0].id)">+</button>
+          <button @click="removeFromCart(group[0].name_english)">−</button>
+          <p>{{ group.reduce((total, item) => total + item.quantity, 0) }}</p>
+          <button @click="addToCart(group[0].name_english)">+</button>
         </div>
       </div>
     </div>
@@ -21,20 +21,26 @@
     <button  @click="openModal">
       <span style="left: 2vh;position: fixed;">{{ getTotalQuantity() }} товаров </span>
       <span>К оформлению </span>
-        <span style="right: 2vh;position: fixed">{{ getTotalPrice() }}₽</span>
+      <span style="right: 2vh;position: fixed">{{ getTotalPrice() }}₽</span>
     </button>
   </div>
 </template>
 
 <script>
 import flowerData from "@/assets/flowers.json";
-
+import axios from 'axios';
 export default {
   name: "Cart",
   data() {
     return {
+      goodsData: {
+        unique_categories: [],
+        unique_subcategories: [],
+        goods_list: [],
+      },
       products: flowerData,
       cart: [],
+      notFoundImage :'https://yt3.googleusercontent.com/iRLpuvr-WoAkDmOmXQiVnk7Gf4knJ6_OmIqZRmal4FeFxwbPLkMwIWm4QZlvH9t2GojQWZ4P=s900-c-k-c0x00ffffff-no-rj'
     };
   },
   computed: {
@@ -42,7 +48,7 @@ export default {
       // Группировка элементов корзины по их идентификатору
       const grouped = {};
       this.cart.forEach(item => {
-        const groupId = item.id;
+        const groupId = item.name_english;
         if (!grouped[groupId]) {
           grouped[groupId] = [];
         }
@@ -54,7 +60,7 @@ export default {
   methods: {
     removeFromCartCompletely(itemId) {
       const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-      const index = cartItems.findIndex(({ id }) => id === itemId);
+      const index = cartItems.findIndex(({ name_english }) => name_english === itemId);
 
       if (index !== -1) {
         // Если элемент найден в корзине, удаляем его полностью
@@ -76,12 +82,12 @@ export default {
       return this.cart.reduce((total, item) => total + item.price * item.quantity, 0);
     },
     addToCart(itemId) {
-      const item = this.products.find(({ id }) => id === itemId);
+      const item = this.products.find(({ name_english }) => name_english === itemId);
       if (!localStorage.getItem("cart")) {
         localStorage.setItem("cart", JSON.stringify([]));
       }
       const cartItems = JSON.parse(localStorage.getItem("cart"));
-      const existingItem = cartItems.find(cartItem => cartItem.id === itemId);
+      const existingItem = cartItems.find(cartItem => cartItem.name_english === itemId);
 
       if (existingItem) {
         // Если товар уже в корзине, увеличиваем количество
@@ -98,7 +104,7 @@ export default {
     },
     removeFromCart(itemId) {
       const cartItems = JSON.parse(localStorage.getItem("cart"));
-      const index = cartItems.findIndex(({ id }) => id === itemId);
+      const index = cartItems.findIndex(({ name_english }) => name_english === itemId);
 
       if (index !== -1) {
         const existingItem = cartItems[index];
@@ -146,7 +152,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  bottom:7%;
+  bottom:6.5vh;
   position: fixed;
 }
 
@@ -165,6 +171,7 @@ export default {
 .cart {
   //max-width: 800px;
   padding: 10px;
+  margin-bottom: 10vh;
 }
 
 .cart-item {
