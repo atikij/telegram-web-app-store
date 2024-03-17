@@ -19,7 +19,11 @@
   </div>
   <div class="product-list">
     <div class="product-item" v-for="product in displayedProducts" :key="product.id">
-      <img :src="product.image || notFoundImage" alt="Product Image" class="product-image"/>
+      <Carousel :autoplay="5000" :wrap-around="true">
+        <Slide v-for="(image, index) in product.img" :key="index">
+          <img :src="image || notFoundImage" alt="Slide Image" class="product-image" />
+        </Slide>
+      </Carousel>
       <div class="product-details">
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
@@ -35,10 +39,17 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
+import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
 import { mapState } from 'vuex';
-import flowerData from "@/assets/flowers.json";
 import axios from "@/services/axios.js";
-export default {
+export default defineComponent({
+  name: 'Basic',
+  components: {
+    Carousel,
+    Slide,
+  },
   data() {
     return {
       goodsData: {
@@ -46,7 +57,6 @@ export default {
         unique_subcategories: [],
         goods_list: [],
       },
-      products: flowerData,
       cart:[],
       selectedCategory: null,
       notFoundImage :'https://yt3.googleusercontent.com/iRLpuvr-WoAkDmOmXQiVnk7Gf4knJ6_OmIqZRmal4FeFxwbPLkMwIWm4QZlvH9t2GojQWZ4P=s900-c-k-c0x00ffffff-no-rj'
@@ -112,7 +122,7 @@ export default {
       } catch (error) {
         console.error('Ошибка при получении данных:', error);
       }
-    }
+    },
   },
   computed: {
     ...mapState(['searchText']),
@@ -137,8 +147,8 @@ export default {
   },
   mounted() {
     this.fetchGoodsData();
-  }
-};
+  },
+})
 </script>
 
 <style>
@@ -176,7 +186,8 @@ export default {
 }
 
 .product-item {
-  position: relative; /* Относительное позиционирование для корректного позиционирования quantity-controls */
+  display: flex;
+  flex-direction: column;
   width: calc(33.33% - 20px); /* Уменьшено расстояние между карточками */
   background-color: gainsboro;
   border-radius: 5px;
@@ -200,7 +211,10 @@ export default {
 .product-details {
   position: relative; /* Относительное позиционирование для корректного позиционирования quantity-controls */
   padding: 0 15px 15px 15px;
-  height: 50%;
+  flex-grow: 1; /* Занимает всю доступную высоту внутри .product-item */
+  overflow: hidden; /* Обрезаем содержимое, чтобы избежать перекрытия */
+  display: flex; /* Размещаем дочерние элементы внутри product-details в виде flex-контейнера */
+  flex-direction: column; /* Отображаем дочерние элементы в колонку */
 }
 @media screen and (max-width: 767px) {
   .product-item {
@@ -215,12 +229,11 @@ export default {
 .quantity-controls {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 10px;
+  justify-content: space-between;
   overflow: hidden;
+  margin-top: auto; /* Размещаем контролы внизу карточки */
   border: 2px solid gray;
   border-radius: 10px;
-  bottom: 0;
 }
 
 
