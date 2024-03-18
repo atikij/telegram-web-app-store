@@ -2,7 +2,14 @@
   <div class="cart">
     <h1>Корзина {{ getTotalQuantity() }} товаров</h1>
     <div v-for="(group, groupId) in groupedCart" :key="groupId" class="cart-item">
-      <img :src="group[0].image || notFoundImage" alt="Product Image" class="cart-image" />
+      <Carousel class="image">
+        <Slide v-for="(image, index) in group[0].img" :key="index">
+          <img :src="image || notFoundImage" alt="Slide Image" class="cart-image" />
+        </Slide>
+        <template #addons>
+          <Pagination/>
+        </template>
+      </Carousel>
       <div class="cart-details">
         <h3>{{ group[0].name }}</h3>
         <p>{{ getTotalItemPrice(group) }}₽</p>
@@ -18,7 +25,7 @@
     </div>
   </div>
   <div class="pay">
-    <button  @click="openModal">
+    <button @click="pay">
       <span style="left: 2vh;position: fixed;">{{ getTotalQuantity() }} товаров </span>
       <span>К оформлению </span>
       <span style="right: 2vh;position: fixed">{{ getTotalPrice() }}₽</span>
@@ -29,8 +36,18 @@
 <script>
 import flowerData from "@/assets/flowers.json";
 import axios from 'axios';
-export default {
-  name: "Cart",
+import { defineComponent } from 'vue'
+import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
+import 'vue3-carousel/dist/carousel.css'
+export default defineComponent({
+  name: 'Basic',
+  components: {
+    Carousel,
+    Slide,
+    Navigation,
+    Pagination
+  },
+  //name: "Cart",
   data() {
     return {
       goodsData: {
@@ -131,7 +148,7 @@ export default {
   beforeMount() {
     this.getCart();
   },
-};
+})
 </script>
 
 
@@ -184,13 +201,22 @@ export default {
   border: 1px solid #ddd;
   border-radius: 5px;
 }
+.image{
+  width: 20vh;
+  height: auto;
+  margin-right: 10px;
+}
 
 .cart-image {
   width: 20vh;
   height: 20vb;
   object-fit: cover;
   border-radius: 5px;
-  margin-right: 10px;
+}
+
+.carousel__pagination{
+  margin-top: 10px;
+  padding: 0;
 }
 
 .cart-details {
@@ -235,15 +261,6 @@ export default {
 
 .quantity-controls span {
   padding: 8px 12px;
-}
-
-
-
-.total {
-  margin-top: 20px;
-  text-align: right;
-  font-size: 18px;
-  font-weight: bold;
 }
 </style>
 

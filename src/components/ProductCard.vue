@@ -19,10 +19,13 @@
   </div>
   <div class="product-list">
     <div class="product-item" v-for="product in displayedProducts" :key="product.id">
-      <Carousel :autoplay="5000" :wrap-around="true">
+      <Carousel>
         <Slide v-for="(image, index) in product.img" :key="index">
-          <img :src="image || notFoundImage" alt="Slide Image" class="product-image" />
+         <div class="carousel__item"> <img :src="image || notFoundImage" alt="Slide Image" class="product-image" /></div>
         </Slide>
+        <template #addons>
+          <Pagination/>
+        </template>
       </Carousel>
       <div class="product-details">
         <h3>{{ product.name }}</h3>
@@ -49,6 +52,8 @@ export default defineComponent({
   components: {
     Carousel,
     Slide,
+    Navigation,
+    Pagination
   },
   data() {
     return {
@@ -193,12 +198,7 @@ export default defineComponent({
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 0 0 20px 0;
-  transition: transform 0.3s;
   overflow: hidden; /* Обрезать изображение, если оно не соответствует карточке */
-}
-
-.product-item:hover {
-  transform: translateY(-5px);
 }
 
 .product-image {
@@ -258,6 +258,11 @@ export default defineComponent({
 
 .categories span{
   padding: 12px;
+}
+
+.carousel__pagination{
+  padding: 0;
+  margin-top: 0;
 }
 </style>
 
