@@ -20,6 +20,7 @@
 
 <script>
 import { mapMutations } from 'vuex';
+
 export default {
   computed: {
     searchText: {

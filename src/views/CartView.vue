@@ -35,16 +35,15 @@
 
 <script>
 import flowerData from "@/assets/flowers.json";
-import axios from 'axios';
 import { defineComponent } from 'vue'
-import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
+import { Carousel, Pagination, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
+
 export default defineComponent({
   name: 'Basic',
   components: {
     Carousel,
     Slide,
-    Navigation,
     Pagination
   },
   //name: "Cart",
@@ -144,6 +143,10 @@ export default defineComponent({
       }
       this.cart = JSON.parse(localStorage.getItem("cart"));
     },
+    pay() {
+      let tg = window.Telegram.WebApp
+      tg.sendData(this.cart);
+    }
   },
   beforeMount() {
     this.getCart();
