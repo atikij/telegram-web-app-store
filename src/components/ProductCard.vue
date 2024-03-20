@@ -19,14 +19,18 @@
   </div>
   <div class="product-list">
     <div class="product-item" v-for="product in displayedProducts" :key="product.id">
-      <Carousel>
-        <Slide v-for="(image, index) in product.img" :key="index">
-         <div class="carousel__item"> <img :src="image || notFoundImage" alt="Slide Image" class="product-image" /></div>
-        </Slide>
-        <template #addons>
-          <Pagination/>
-        </template>
-      </Carousel>
+      <router-link :to="{ name: 'productCart', params: { name_english: product.name_english }}">
+        <Carousel>
+          <Slide v-for="(image, index) in product.img" :key="index">
+            <div class="carousel__item">
+              <img :src="image || notFoundImage" alt="Slide Image" class="product-image" />
+            </div>
+          </Slide>
+          <template #addons>
+            <Pagination/>
+          </template>
+        </Carousel>
+      </router-link>
       <div class="product-details">
         <h3>{{ product.name }}</h3>
         <p>{{ product.description }}</p>
@@ -43,31 +47,29 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
+import { Carousel, Pagination, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
-import { mapState } from 'vuex';
-import axios from "@/services/axios.js";
+import {mapActions, mapState} from 'vuex';
+import SmallProductCard from "@/components/SmallProductCard.vue";
+
 export default defineComponent({
   name: 'Basic',
   components: {
     Carousel,
     Slide,
-    Navigation,
-    Pagination
+    Pagination,
+    SmallProductCard
   },
   data() {
     return {
-      goodsData: {
-        unique_categories: [],
-        unique_subcategories: [],
-        goods_list: [],
-      },
       cart:[],
+      selectedProduct: null,
       selectedCategory: null,
       notFoundImage :'https://yt3.googleusercontent.com/iRLpuvr-WoAkDmOmXQiVnk7Gf4knJ6_OmIqZRmal4FeFxwbPLkMwIWm4QZlvH9t2GojQWZ4P=s900-c-k-c0x00ffffff-no-rj'
     };
   },
   methods: {
+    ...mapActions(['fetchGoodsData']), // Используйте mapActions для вызова действия fetchGoodsData
     filterProducts(category) {
       this.selectedCategory = category;
     },
@@ -120,17 +122,9 @@ export default defineComponent({
       const item = cartItems.find(cartItem => cartItem.name_english === itemId);
       return item ? item.quantity : 0;
     },
-    async fetchGoodsData() {
-      try {
-        const response = await axios.get('/db');
-        this.goodsData = response.data;
-      } catch (error) {
-        console.error('Ошибка при получении данных:', error);
-      }
-    },
   },
   computed: {
-    ...mapState(['searchText']),
+    ...mapState(['searchText', 'goodsData']),
     displayedProducts() {
       let filteredProducts = this.goodsData.goods_list;
 
@@ -161,7 +155,7 @@ export default defineComponent({
   display: flex;
   justify-content: space-around;
   margin-top: 5%;
-  overflow: auto; /* Добавляем полосу прокрутки при нехватке места */
+  overflow: hidden; /* Добавляем полосу прокрутки при нехватке места */
   max-width: 100%; /* Ограничиваем максимальную ширину до 100% ширины родительского контейнера */
 }
 

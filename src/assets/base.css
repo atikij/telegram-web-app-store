@@ -59,6 +59,7 @@
 }
 
 body {
+  touch-action: manipulation;/*отключение приближения при многократном нажатие*/
   min-height: 100vh;
   color: var(--vt-c-black);
   background: whitesmoke;

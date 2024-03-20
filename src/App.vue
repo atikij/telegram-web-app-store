@@ -1,6 +1,6 @@
 <template>
   <div class="main-window-template">
-    <div class="main-window-search-container">
+    <div v-if="isHomePage" class="main-window-search-container">
       <img src="https://i.pinimg.com/originals/cd/ab/85/cdab85a392e92623afa27de32443379f.png" alt="search icon" class="search-icon">
       <input type="text" v-model = "searchText" placeholder = "Поиск" class="search-input" />
     </div>
@@ -8,10 +8,10 @@
       <router-view/>
     </div>
     <div class="main-window-navigation">
-      <RouterLink to="/" class="nav-item">
+      <RouterLink to="/" class="">
         <img src="https://i.pinimg.com/originals/ae/2f/01/ae2f014eb3b1772144de744ce424da6a.png" alt="Home Icon" class="nav-icon" />
       </RouterLink>
-      <RouterLink to="/cart" class="nav-item">
+      <RouterLink to="/cart" class="">
         <img src="https://grizly.club/uploads/posts/2022-12/1670822449_grizly-club-p-ikonka-korzina-png-1.png" alt="Home Icon" class="nav-icon" />
       </RouterLink>
     </div>
@@ -20,6 +20,9 @@
 
 <script>
 import { mapMutations } from 'vuex';
+import {useWebApp} from "vue-tg";
+
+let tg = window.Telegram.WebApp;
 
 export default {
   computed: {
@@ -30,6 +33,9 @@ export default {
       set(value) {
         this.localSearchText = value;
       },
+    },
+    isHomePage() {
+      return this.$route.path === '/';
     },
   },
   methods:{
@@ -68,8 +74,8 @@ export default {
 }
 
 .nav-icon {
-  width: 100%; /* Установите желаемую ширину и высоту для иконки */
-  height: 24px;
+  width: 7vw; /* Установите желаемую ширину и высоту для иконки */
+  height: 7vw;
 }
 
 .main-window-search-container {
@@ -115,7 +121,7 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px;
+  padding: 2vw;
   background-color: #f5f5f5;
   border-top: 1px solid #ddd;
 }
@@ -126,7 +132,6 @@ export default {
   //padding: 5px 10px;
   border-radius: 5px;
   height: 100%;
-  width: ;
   transition: background-color 0.3s;
 }
 
