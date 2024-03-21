@@ -30,7 +30,7 @@
     <button @click="pay">
       <span style="left: 2vh;position: fixed;">{{ getTotalQuantity() }} товаров </span>
       <span>К оформлению </span>
-      <span style="right: 2vh;position: fixed">{{ getTotalPrice() }}₽</span>
+      <span style="right: 2vh;position: fixed;">{{ getTotalPrice() }}₽</span>
     </button>
   </div>
 </template>
@@ -183,6 +183,8 @@ export default defineComponent({
 }
 
 .pay button {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
   width: 100%;
   background-color: #FFAFCC;
   color: #fff;
@@ -263,12 +265,5 @@ export default defineComponent({
   background-color: #ccc;
 }
 
-.quantity-controls span {
-  margin: 0 5px;
-}
-
-.quantity-controls span {
-  padding: 8px 12px;
-}
 </style>
 

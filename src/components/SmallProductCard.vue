@@ -129,12 +129,14 @@ export default {
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
-  margin-top: auto; /* Размещаем контролы внизу карточки */
   border: 2px solid gray;
   border-radius: 10px;
   color: black;
   width: 55%;
-  height: 100%; /* Устанавливаем высоту */
+}
+.quantity-controls-card-details,
+.to-cart-btn{
+  height: 36px;
 }
 
 .quantity-controls-card-details button {

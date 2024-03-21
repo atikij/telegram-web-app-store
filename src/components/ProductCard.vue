@@ -1,4 +1,5 @@
 <template>
+  <div @click="hideKeyboardOnOutsideClick">
   <div class="categories">
     <button  @click="filterProducts('Монобукеты')">
       <img src="https://cdn-icons-png.flaticon.com/512/1261/1261146.png" alt="Монобукеты" class="category-icon" />
@@ -37,12 +38,24 @@
         <p>{{ product.price }}₽</p>
         <div class="quantity-controls">
           <button @click="removeFromCart(product.name_english)" style="font-size: 24px; color: black">−</button>
-          <span>{{getProductQuantity(product.name_english) || 0}}</span>
+          <input
+              type="number"
+              inputmode="numeric"
+              pattern="[0-9]*"
+              :value="getProductQuantity(product.name_english)"
+              min="0"
+              @change="handleQuantityInput(product.name_english, $event)"
+          >
           <button @click="addToCart(product.name_english)" style="font-size: 24px; color: black">+</button>
         </div>
       </div>
     </div>
   </div>
+  <div class="div-to-cart-btn">
+  <router-link v-show="hasItemsInCart" to="/cart" class="to-cart-btn-home">Перейти в корзину</router-link>
+  </div>
+  </div>
+
 </template>
 
 <script>
@@ -63,13 +76,47 @@ export default defineComponent({
   data() {
     return {
       cart:[],
-      selectedProduct: null,
+      hasItemsInCart: false,
       selectedCategory: null,
       notFoundImage :'https://yt3.googleusercontent.com/iRLpuvr-WoAkDmOmXQiVnk7Gf4knJ6_OmIqZRmal4FeFxwbPLkMwIWm4QZlvH9t2GojQWZ4P=s900-c-k-c0x00ffffff-no-rj'
     };
   },
   methods: {
+    hideKeyboardOnOutsideClick(event) {
+      if (!event.target.closest('.quantity-controls')) { // Если клик был сделан вне элемента .quantity-controls
+        document.activeElement.blur(); // Скрыть клавиатуру
+      }
+    },
     ...mapActions(['fetchGoodsData']), // Используйте mapActions для вызова действия fetchGoodsData
+    checkCartItems() {
+      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      this.hasItemsInCart = cartItems.length > 0;
+    },
+    handleQuantityInput(itemNameEnglish, event) {
+      const newQuantity = parseInt(event.target.value);
+      this.updateCart(itemNameEnglish, newQuantity);
+    },
+    updateCart(itemNameEnglish, newQuantity) {
+      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      const itemIndex = cartItems.findIndex(item => item.name_english === itemNameEnglish);
+
+      if (itemIndex !== -1) {
+        // Товар уже в корзине, обновляем количество
+        if (newQuantity > 0) {
+          cartItems[itemIndex].quantity = newQuantity;
+        } else {
+          // Если новое количество равно 0 или отрицательное, удаляем товар из корзины
+          cartItems.splice(itemIndex, 1);
+          //показываем кнопку перейти в корзину
+          this.checkCartItems();
+        }
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+      } else {
+        // Товар не найден в корзине, добавляем его с помощью метода addToCart
+        this.addToCart(itemNameEnglish);
+      }
+    },
+
     filterProducts(category) {
       this.selectedCategory = category;
     },
@@ -95,6 +142,8 @@ export default defineComponent({
       this.cart = JSON.parse(localStorage.getItem("cart"));
       //обновление количества товаров при нажатии
       this.$forceUpdate();
+      //показываем кнопку перейти в корзину
+      this.checkCartItems();
     },
     removeFromCart(itemId) {
       const cartItems = JSON.parse(localStorage.getItem("cart"));
@@ -115,6 +164,8 @@ export default defineComponent({
         this.cart = JSON.parse(localStorage.getItem("cart"));
         //обновление количества товаров при нажатии
         this.$forceUpdate();
+        //показываем кнопку перейти в корзину
+        this.checkCartItems();
       }
     },
     getProductQuantity(itemId) {
@@ -125,6 +176,9 @@ export default defineComponent({
   },
   computed: {
     ...mapState(['searchText', 'goodsData']),
+    isHomePage() {
+      return this.$route.path === '/';
+    },
     displayedProducts() {
       let filteredProducts = this.goodsData.goods_list;
 
@@ -145,6 +199,7 @@ export default defineComponent({
     },
   },
   mounted() {
+    this.checkCartItems();
     this.fetchGoodsData();
   },
 })
@@ -197,7 +252,7 @@ export default defineComponent({
 
 .product-image {
   width: 100%;
-  height:20vh;
+  height:100%;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -223,36 +278,55 @@ export default defineComponent({
 .quantity-controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   overflow: hidden;
   margin-top: auto; /* Размещаем контролы внизу карточки */
   border: 2px solid gray;
   border-radius: 10px;
   color: black;
+  width: 100%;
 }
-
+.quantity-controls input[type="number"]{
+  width: 46px;
+  height: 100%;
+  outline: none;
+  appearance: none; /* Other browsers */
+  text-align: center;
+  background-color: gainsboro;
+  border: none;
+  box-sizing: border-box; /* Учитываем padding внутри элемента */
+  font-size: 16px;
+}
 
 .quantity-controls button {
   background-color: gainsboro;
   border: none;
   width: 100%;
-  height: 4vh;
+  height: 36px;
 }
 
-.quantity-controls button:hover {
-  background-color: #ccc;
+.div-to-cart-btn{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  bottom:6.5vh;
+  position: fixed;
 }
-
-.quantity-controls span {
-  margin: 0 5px;
-}
-
-.quantity-controls span {
-  padding: 8px 12px;
-}
-
-.categories span{
-  padding: 12px;
+.to-cart-btn-home {
+  width: 100%;
+  background-color: #FFAFCC;
+  color: #fff;
+  margin: 10px;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center; /* Выравниваем текст по центру */
+  display: block; /* Превращаем кнопку в блочный элемент, чтобы ширина 100% работала правильно */
+  box-sizing: border-box; /* Учитываем внутренние отступы и границы в размерах кнопки */
+  line-height: 1; /* Устанавливаем высоту строки равной 1, чтобы избежать дополнительного вертикального отступа */
 }
 
 .carousel__pagination{
