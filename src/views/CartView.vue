@@ -13,14 +13,16 @@
       <div class="cart-details">
         <h3>{{ group[0].name }}</h3>
         <p>{{ getTotalItemPrice(group) }}₽</p>
+        <div class="delete-quantity-control">
         <div class="delete">
           <button @click="removeFromCartCompletely(group[0].name_english)">×</button>
         </div>
         <div class="quantity-controls-cart">
-          <button @click="removeFromCart(group[0].name_english)">−</button>
+          <button @click="removeFromCart(group[0].name_english)" style="font-size: 18px; color: black">−</button>
           <p>{{ group.reduce((total, item) => total + item.quantity, 0) }}</p>
-          <button @click="addToCart(group[0].name_english)">+</button>
+          <button @click="addToCart(group[0].name_english)" style="font-size: 18px; color: black">+</button>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -156,9 +158,13 @@ export default defineComponent({
 
 
 <style scoped>
+.delete-quantity-control{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .delete button {
   margin-top: 15px;
-  position: absolute;
   background-color: #DCDCDC;
   border: none;
   font-size: 28px;
@@ -236,9 +242,8 @@ export default defineComponent({
 
 .quantity-controls-cart {
   display: flex;
-  position: absolute;
   right: 1rem;
-  width: 20%;
+  width: 50%;
   align-items: center;
   justify-content: center;
   margin-top: 10px;

@@ -74,8 +74,8 @@ export default {
 }
 
 .nav-icon {
-  width: 7vw; /* Установите желаемую ширину и высоту для иконки */
-  height: 7vw;
+  width: 4vh; /* Установите желаемую ширину и высоту для иконки */
+  height: 4vh;
 }
 
 .main-window-search-container {

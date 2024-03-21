@@ -2,19 +2,19 @@
   <div class="categories">
     <button  @click="filterProducts('Монобукеты')">
       <img src="https://cdn-icons-png.flaticon.com/512/1261/1261146.png" alt="Монобукеты" class="category-icon" />
-      <span>Монобукеты</span>
+      <span style="color: black">Монобукеты</span>
     </button>
     <button @click="filterProducts('Авторские_букеты')">
       <img src="https://cdn-icons-png.flaticon.com/512/2438/2438198.png" alt="Авторские букеты" class="category-icon"/>
-      <span>Авторские букеты</span>
+      <span style="color: black">Авторские букеты</span>
     </button>
     <button @click="filterProducts('Цветы_в_коробке')">
       <img src="https://cdn-icons-png.flaticon.com/512/4148/4148023.png" alt="Букеты в корзинках" class="category-icon"/>
-      <span>Букеты в корзинках</span>
+      <span style="color: black">Букеты в корзинках</span>
     </button>
     <button @click="filterProducts(null)">
       <img src="https://cdn-icons-png.flaticon.com/512/7348/7348543.png" alt="Все категории" class="category-icon"/>
-      <span>Все товары</span>
+      <span style="color: black">Все товары</span>
     </button>
   </div>
   <div class="product-list">
@@ -36,9 +36,9 @@
         <p>{{ product.description }}</p>
         <p>{{ product.price }}₽</p>
         <div class="quantity-controls">
-          <button @click="removeFromCart(product.name_english)">-</button>
+          <button @click="removeFromCart(product.name_english)" style="font-size: 24px; color: black">−</button>
           <span>{{getProductQuantity(product.name_english) || 0}}</span>
-          <button @click="addToCart(product.name_english)">+</button>
+          <button @click="addToCart(product.name_english)" style="font-size: 24px; color: black">+</button>
         </div>
       </div>
     </div>
@@ -228,6 +228,7 @@ export default defineComponent({
   margin-top: auto; /* Размещаем контролы внизу карточки */
   border: 2px solid gray;
   border-radius: 10px;
+  color: black;
 }
 
 
