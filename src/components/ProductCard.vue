@@ -1,21 +1,21 @@
 <template>
-  <div @click="hideKeyboardOnOutsideClick">
+  <div @click="hideKeyboardOnOutsideClick" @scroll="hideKeyboardOnOutsideClick">
   <div class="categories">
     <button  @click="filterProducts('Монобукеты')">
       <img src="https://cdn-icons-png.flaticon.com/512/1261/1261146.png" alt="Монобукеты" class="category-icon" />
-      <span style="color: black">Монобукеты</span>
+      <span >Монобукеты</span>
     </button>
     <button @click="filterProducts('Авторские_букеты')">
       <img src="https://cdn-icons-png.flaticon.com/512/2438/2438198.png" alt="Авторские букеты" class="category-icon"/>
-      <span style="color: black">Авторские букеты</span>
+      <span >Авторские букеты</span>
     </button>
     <button @click="filterProducts('Цветы_в_коробке')">
       <img src="https://cdn-icons-png.flaticon.com/512/4148/4148023.png" alt="Букеты в корзинках" class="category-icon"/>
-      <span style="color: black">Букеты в корзинках</span>
+      <span >Букеты в корзинках</span>
     </button>
     <button @click="filterProducts(null)">
       <img src="https://cdn-icons-png.flaticon.com/512/7348/7348543.png" alt="Все категории" class="category-icon"/>
-      <span style="color: black">Все товары</span>
+      <span >Все товары</span>
     </button>
   </div>
   <div class="product-list">
@@ -34,10 +34,10 @@
       </router-link>
       <div class="product-details">
         <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
+        <!--<p>{{ product.description }}</p>-->
         <p>{{ product.price }}₽</p>
         <div class="quantity-controls">
-          <button @click="removeFromCart(product.name_english)" style="font-size: 24px; color: black">−</button>
+          <button @click="removeFromCart(product.name_english)" style="font-size: 24px;">−</button>
           <input
               type="number"
               inputmode="numeric"
@@ -46,7 +46,7 @@
               min="0"
               @change="handleQuantityInput(product.name_english, $event)"
           >
-          <button @click="addToCart(product.name_english)" style="font-size: 24px; color: black">+</button>
+          <button @click="addToCart(product.name_english)" style="font-size: 24px;">+</button>
         </div>
       </div>
     </div>
@@ -82,12 +82,12 @@ export default defineComponent({
     };
   },
   methods: {
+    ...mapActions(['fetchGoodsData']), // Используйте mapActions для вызова действия fetchGoodsData
     hideKeyboardOnOutsideClick(event) {
       if (!event.target.closest('.quantity-controls')) { // Если клик был сделан вне элемента .quantity-controls
         document.activeElement.blur(); // Скрыть клавиатуру
       }
     },
-    ...mapActions(['fetchGoodsData']), // Используйте mapActions для вызова действия fetchGoodsData
     checkCartItems() {
       const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
       this.hasItemsInCart = cartItems.length > 0;
@@ -212,6 +212,8 @@ export default defineComponent({
   margin-top: 5%;
   overflow: hidden; /* Добавляем полосу прокрутки при нехватке места */
   max-width: 100%; /* Ограничиваем максимальную ширину до 100% ширины родительского контейнера */
+  color: var(--tg-theme-text-color);
+  background: var(--tg-theme-bg-color);
 }
 
 .categories button {
@@ -225,6 +227,7 @@ export default defineComponent({
 
 .categories span{
   font-family: Roboto,sans-serif;
+  color: var(--tg-theme-text-color);
 }
 
 .category-icon {
@@ -237,13 +240,15 @@ export default defineComponent({
   flex-wrap: wrap;
   justify-content: space-around;
   overflow: hidden;
+  margin-bottom: 10vh;
 }
 
 .product-item {
   display: flex;
   flex-direction: column;
   width: calc(33.33% - 20px); /* Уменьшено расстояние между карточками */
-  background-color: gainsboro;
+  color: var(--tg-theme-text-color);
+  background: var(--tg-theme-secondary-bg-color);
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 0 0 20px 0;
@@ -252,7 +257,7 @@ export default defineComponent({
 
 .product-image {
   width: 100%;
-  height:100%;
+  height:20vh;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -281,9 +286,9 @@ export default defineComponent({
   justify-content: center;
   overflow: hidden;
   margin-top: auto; /* Размещаем контролы внизу карточки */
-  border: 2px solid gray;
+  border: 2px solid var(--tg-theme-text-color);
   border-radius: 10px;
-  color: black;
+  color: var(--tg-theme-text-color);
   width: 100%;
 }
 .quantity-controls input[type="number"]{
@@ -292,14 +297,16 @@ export default defineComponent({
   outline: none;
   appearance: none; /* Other browsers */
   text-align: center;
-  background-color: gainsboro;
+  color: var(--tg-theme-text-color);
+  background-color: var(--tg-theme-secondary-bg-color);
   border: none;
   box-sizing: border-box; /* Учитываем padding внутри элемента */
   font-size: 16px;
 }
 
 .quantity-controls button {
-  background-color: gainsboro;
+  background-color: var(--tg-theme-secondary-bg-color);
+  color: var(--tg-theme-text-color);
   border: none;
   width: 100%;
   height: 36px;
@@ -315,8 +322,8 @@ export default defineComponent({
 }
 .to-cart-btn-home {
   width: 100%;
-  background-color: #FFAFCC;
-  color: #fff;
+  background: var(--tg-theme-button-color);
+  color: var(--tg-theme-button-text-color);
   margin: 10px;
   border: none;
   padding: 10px;

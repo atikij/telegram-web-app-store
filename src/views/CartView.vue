@@ -18,9 +18,9 @@
           <button @click="removeFromCartCompletely(group[0].name_english)">×</button>
         </div>
         <div class="quantity-controls-cart">
-          <button @click="removeFromCart(group[0].name_english)" style="font-size: 18px; color: black">−</button>
+          <button @click="removeFromCart(group[0].name_english)" style="font-size: 24px;">−</button>
           <p>{{ group.reduce((total, item) => total + item.quantity, 0) }}</p>
-          <button @click="addToCart(group[0].name_english)" style="font-size: 18px; color: black">+</button>
+          <button @click="addToCart(group[0].name_english)" style="font-size: 24px;">+</button>
         </div>
       </div>
       </div>
@@ -40,6 +40,7 @@ import flowerData from "@/assets/flowers.json";
 import { defineComponent } from 'vue'
 import { Carousel, Pagination, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
+let tg = window.Telegram.WebApp;
 
 export default defineComponent({
   name: 'Basic',
@@ -146,7 +147,6 @@ export default defineComponent({
       this.cart = JSON.parse(localStorage.getItem("cart"));
     },
     pay() {
-      let tg = window.Telegram.WebApp
       tg.sendData(this.cart);
     }
   },
@@ -165,11 +165,11 @@ export default defineComponent({
 }
 .delete button {
   margin-top: 15px;
-  background-color: #DCDCDC;
+  background-color: var(--tg-theme-secondary-bg-color);
   border: none;
   font-size: 28px;
   cursor: pointer;
-  color: black;
+  color: var(--tg-theme-text-color);
   border-radius: 5px;
 }
 
@@ -186,8 +186,8 @@ export default defineComponent({
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   width: 100%;
-  background-color: #FFAFCC;
-  color: #fff;
+  background: var(--tg-theme-button-color);
+  color: var(--tg-theme-button-text-color);
   margin: 10px;
   border: none;
   padding: 10px;
@@ -203,13 +203,12 @@ export default defineComponent({
 }
 
 .cart-item {
-  background-color:gainsboro;
+  background-color:var(--tg-theme-secondary-bg-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
   padding: 10px;
-  border: 1px solid #ddd;
   border-radius: 5px;
 }
 .image{
@@ -250,12 +249,13 @@ export default defineComponent({
   justify-content: center;
   margin-top: 10px;
   overflow: hidden;
-  border: 2px solid gray;
+  border: 2px solid var(--tg-theme-text-color);
   border-radius: 10px;
 }
 
 .quantity-controls-cart button {
-  background-color: gainsboro;
+  background-color: var(--tg-theme-secondary-bg-color);
+  color: var(--tg-theme-text-color);
   border: none;
   width: 100%;
   height: 4vh;

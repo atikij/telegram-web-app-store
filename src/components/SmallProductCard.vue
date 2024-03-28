@@ -1,6 +1,6 @@
 <template>
   <div class="product-card">
-    <router-link to="/">Назад</router-link>
+    <router-link to="/" style="color: var(--tg-theme-text-color)">Назад</router-link>
     <h1>{{ product.name }}</h1>
     <Carousel>
       <Slide v-for="(image, index) in product.img" :key="index">
@@ -13,14 +13,14 @@
       </template>
     </Carousel>
     <h2>{{ product.price }}₽</h2>
-    <h4>Описание: {{ product.description }}</h4>
+    <h4 style="color: var(--tg-theme-hint-color)">Описание: {{ product.description }}</h4>
   </div>
   <div class="pay">
     <div v-if="showCartButtons || getProductQuantity(product.name_english) > 0" class="add-remove-container">
       <div class="quantity-controls-card-details">
-        <button class="quantity-btn" @click="removeFromCart(product.name_english)" style="font-size: 24px; color: black">-</button>
-        <span >{{getProductQuantity(product.name_english) || 0}}</span>
-        <button class="quantity-btn" @click="addToCart(product.name_english)" style="font-size: 24px; color: black">+</button>
+        <button class="quantity-btn" @click="removeFromCart(product.name_english)" style="font-size: 24px;color: var(--tg-theme-text-color);">-</button>
+        <span>{{getProductQuantity(product.name_english) || 0}}</span>
+        <button class="quantity-btn" @click="addToCart(product.name_english)" style="font-size: 24px;color:var(--tg-theme-text-color);">+</button>
       </div>
       <router-link to="/cart" class="to-cart-btn">В корзину</router-link>
     </div>
@@ -124,14 +124,14 @@ export default {
 
 <style scoped>
 .quantity-controls-card-details {
-  background-color: whitesmoke;
+  background: var(--tg-theme-bg-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
-  border: 2px solid gray;
+  border: 2px solid var(--tg-theme-text-color);
   border-radius: 10px;
-  color: black;
+  color: var(--tg-theme-text-color);
   width: 55%;
 }
 .quantity-controls-card-details,
@@ -140,7 +140,7 @@ export default {
 }
 
 .quantity-controls-card-details button {
-  background-color: whitesmoke;
+  background: var(--tg-theme-bg-color);
   border: none;
   width: 100%;
   height: 100%; /* Наследует высоту родителя */
@@ -157,8 +157,9 @@ export default {
 
 .add-to-cart-btn  {
   width: 100%;
-  background-color: #FFAFCC;
-  color: #fff;
+  font-size: 15px;
+  background: var(--tg-theme-button-color);
+  color: var(--tg-theme-button-text-color);
   margin: 10px;
   border: none;
   padding: 10px;
@@ -168,7 +169,6 @@ export default {
 }
 
 .product-card {
-  border: 1px solid #ccc;
   padding: 20px;
   position: relative;
 }
@@ -185,8 +185,8 @@ export default {
   position: fixed;
   width: calc(100% - 20px); /* Учитываем отступы слева и справа */
   margin: 10px; /* Устанавливаем отступы справа и слева */
-  background-color: #FFAFCC;
-  color: #fff;
+  background: var(--tg-theme-button-color);
+  color: var(--tg-theme-button-text-color);
   border: none;
   padding: 10px;
   border-radius: 5px;
@@ -198,9 +198,10 @@ export default {
   justify-content: center; /* Выравниваем по горизонтали по центру */
   align-items: center; /* Выравниваем по вертикали по центру */
   width: 40%;
-  background-color: whitesmoke;
+  background: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
   padding: 0.6vh;
-  border: 2px solid gainsboro;
+  border: 2px solid var(--tg-theme-text-color);
   border-radius: 10px;
 }
 

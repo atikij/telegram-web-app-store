@@ -2,7 +2,7 @@
   <div class="main-window-template">
     <div v-if="isHomePage" class="main-window-search-container">
       <img src="https://i.pinimg.com/originals/cd/ab/85/cdab85a392e92623afa27de32443379f.png" alt="search icon" class="search-icon">
-      <input type="text" v-model = "searchText" placeholder = "Поиск" class="search-input" />
+      <input type="text" v-model = "searchText" placeholder = "Поиск" class="search-input"/>
     </div>
     <div class="main-content">
       <router-view/>
@@ -23,7 +23,16 @@ import { mapMutations } from 'vuex';
 import {useWebApp} from "vue-tg";
 
 let tg = window.Telegram.WebApp;
-
+if(tg.isExpanded===false){
+  tg.expand();
+}
+Telegram.WebApp.onEvent('themeChanged', function(){
+  if (tg.colorScheme === 'light') {
+    document.querySelector('.search-icon').src = 'https://i.pinimg.com/originals/cd/ab/85/cdab85a392e92623afa27de32443379f.png';
+  } else if (tg.colorScheme === 'dark') {
+    document.querySelector('.search-icon').src = 'https://www.tp.edu.sg/etc.clientlibs/tp-web/clientlibs/clientlib-site/resources/images/search-icon.png';
+  }
+});
 export default {
   computed: {
     searchText: {
@@ -40,6 +49,13 @@ export default {
   },
   methods:{
     ...mapMutations(['setSearchText']),
+    updateSearchIcon() {
+      if (tg.colorScheme === 'light') {
+        document.querySelector('.search-icon').src = 'https://i.pinimg.com/originals/cd/ab/85/cdab85a392e92623afa27de32443379f.png';
+      } else if (tg.colorScheme === 'dark') {
+        document.querySelector('.search-icon').src = 'https://www.tp.edu.sg/etc.clientlibs/tp-web/clientlibs/clientlib-site/resources/images/search-icon.png';
+      }
+    }
   },
   watch:{
     localSearchText(newText) {
@@ -54,19 +70,25 @@ export default {
       localSearchText: '',
     };
   },
+  created() {
+    this.updateSearchIcon();
+  },
+  updated() {
+    this.updateSearchIcon();
+  },
+  mounted() {
+    this.updateSearchIcon();
+  }
 };
 </script>
 
+
 <style scoped>
-
-
 .search-icon {
   width: 1.5rem; /* Установите нужную ширину */
   //height: 20%; /* Установите нужную высоту */
   margin-right: 10px; /* Установите нужный отступ справа */
-  opacity: 0.7; /* Настройте прозрачность, если нужно */
 }
-
 
 .main-content {
   flex: 1; /* Занимает все доступное пространство */
@@ -93,8 +115,13 @@ export default {
   flex: 1; /* Занимает доступное пространство */
   padding: 8px;
   margin-right: 10px;
-  border: 1px solid #ccc;
+  border: 2px solid var(--tg-theme-text-color);
   border-radius: 5px;
+  background: var(--tg-theme-secondary-bg-color);
+  color: var(--tg-theme-text-color);
+}
+.search-input::placeholder {
+  color: var(--tg-theme-text-color); /* Цвет placeholder */
 }
 
 .main-window-search-container button {
@@ -110,7 +137,8 @@ export default {
   grid-template-rows: 10vh 80vh 10vh;
   align-items: center;
   align-content: center;
-  background-color: whitesmoke;
+  color: var(--tg-theme-text-color);
+  background: var(--tg-theme-bg-color);
 }
 
 .main-window-navigation {
@@ -123,7 +151,7 @@ export default {
   align-items: center;
   padding: 2vw;
   background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
+  //border-top: 1px solid #ddd;
 }
 
 .nav-item {
