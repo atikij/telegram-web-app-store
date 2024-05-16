@@ -165,12 +165,12 @@ export default defineComponent({
 }
 .delete button {
   margin-top: 15px;
-  background-color: var(--tg-theme-secondary-bg-color);
   border: none;
   font-size: 28px;
   cursor: pointer;
-  color: var(--tg-theme-text-color);
   border-radius: 5px;
+  background: var(--color-background);
+  color: var(--color-text);
 }
 
 .pay {
@@ -186,8 +186,8 @@ export default defineComponent({
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   width: 100%;
-  background: var(--tg-theme-button-color);
-  color: var(--tg-theme-button-text-color);
+  background: var(--color-pink-accent);
+  color: var(--vt-c-white);
   margin: 10px;
   border: none;
   padding: 10px;
@@ -197,13 +197,13 @@ export default defineComponent({
 }
 
 .cart {
-  //max-width: 800px;
   padding: 10px;
   margin-bottom: 10vh;
 }
 
 .cart-item {
-  background-color:var(--tg-theme-secondary-bg-color);
+  background-color:var(--color-background);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -249,16 +249,17 @@ export default defineComponent({
   justify-content: center;
   margin-top: 10px;
   overflow: hidden;
-  border: 2px solid var(--tg-theme-text-color);
   border-radius: 10px;
+  background: var(--color-background);
+  color: var(--color-text);
 }
 
 .quantity-controls-cart button {
-  background-color: var(--tg-theme-secondary-bg-color);
-  color: var(--tg-theme-text-color);
   border: none;
   width: 100%;
   height: 4vh;
+  background: var(--color-background);
+  color: var(--color-text);
 }
 
 .quantity-controls button:hover {

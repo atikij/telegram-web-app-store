@@ -1,6 +1,6 @@
 <template>
   <div class="product-card">
-    <router-link to="/" style="color: var(--tg-theme-text-color)">Назад</router-link>
+    <router-link to="/" style="color: var(--color-text)">Назад</router-link>
     <h1>{{ product.name }}</h1>
     <Carousel>
       <Slide v-for="(image, index) in product.img" :key="index">
@@ -12,15 +12,15 @@
         <Pagination/>
       </template>
     </Carousel>
-    <h2>{{ product.price }}₽</h2>
-    <h4 style="color: var(--tg-theme-hint-color)">Описание: {{ product.description }}</h4>
+    <h2 style="color: var(--color-pink-accent)">{{ product.price }}₽</h2>
+    <h4 style="color: var(--color-text)">{{ product.description }}</h4>
   </div>
   <div class="pay">
     <div v-if="showCartButtons || getProductQuantity(product.name_english) > 0" class="add-remove-container">
       <div class="quantity-controls-card-details">
-        <button class="quantity-btn" @click="removeFromCart(product.name_english)" style="font-size: 24px;color: var(--tg-theme-text-color);">-</button>
+        <button class="quantity-btn" @click="removeFromCart(product.name_english)" style="font-size: 24px;">-</button>
         <span>{{getProductQuantity(product.name_english) || 0}}</span>
-        <button class="quantity-btn" @click="addToCart(product.name_english)" style="font-size: 24px;color:var(--tg-theme-text-color);">+</button>
+        <button class="quantity-btn" @click="addToCart(product.name_english)" style="font-size: 24px;">+</button>
       </div>
       <router-link to="/cart" class="to-cart-btn">В корзину</router-link>
     </div>
@@ -124,14 +124,13 @@ export default {
 
 <style scoped>
 .quantity-controls-card-details {
-  background: var(--tg-theme-bg-color);
+  background: var(--color-pink-accent);
   display: flex;
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
-  border: 2px solid var(--tg-theme-text-color);
+  border: 2px solid var(--color-pink-accent);
   border-radius: 10px;
-  color: var(--tg-theme-text-color);
   width: 55%;
 }
 .quantity-controls-card-details,
@@ -140,7 +139,8 @@ export default {
 }
 
 .quantity-controls-card-details button {
-  background: var(--tg-theme-bg-color);
+  color: var(--vt-c-white);
+  background: var(--color-pink-accent);
   border: none;
   width: 100%;
   height: 100%; /* Наследует высоту родителя */
@@ -158,8 +158,8 @@ export default {
 .add-to-cart-btn  {
   width: 100%;
   font-size: 15px;
-  background: var(--tg-theme-button-color);
-  color: var(--tg-theme-button-text-color);
+  background: var(--color-pink-accent);
+  color: var(--color-background);
   margin: 10px;
   border: none;
   padding: 10px;
@@ -185,8 +185,8 @@ export default {
   position: fixed;
   width: calc(100% - 20px); /* Учитываем отступы слева и справа */
   margin: 10px; /* Устанавливаем отступы справа и слева */
-  background: var(--tg-theme-button-color);
-  color: var(--tg-theme-button-text-color);
+  background: var(--color-background);
+  color: var(--vt-c-white);
   border: none;
   padding: 10px;
   border-radius: 5px;
@@ -198,10 +198,9 @@ export default {
   justify-content: center; /* Выравниваем по горизонтали по центру */
   align-items: center; /* Выравниваем по вертикали по центру */
   width: 40%;
-  background: var(--tg-theme-bg-color);
-  color: var(--tg-theme-text-color);
+  background: var(--color-pink-accent);
+  color: var(--vt-c-white);
   padding: 0.6vh;
-  border: 2px solid var(--tg-theme-text-color);
   border-radius: 10px;
 }
 

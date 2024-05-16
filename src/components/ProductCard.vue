@@ -33,9 +33,10 @@
         </Carousel>
       </router-link>
       <div class="product-details">
-        <h3>{{ product.name }}</h3>
+        <span class="product-item-price">{{ product.price }}₽</span>
+
+        <span class="product-item-name" >{{ product.name }}</span>
         <!--<p>{{ product.description }}</p>-->
-        <p>{{ product.price }}₽</p>
         <div class="quantity-controls">
           <button @click="removeFromCart(product.name_english)" style="font-size: 24px;">−</button>
           <input
@@ -212,8 +213,7 @@ export default defineComponent({
   margin-top: 5%;
   overflow: hidden; /* Добавляем полосу прокрутки при нехватке места */
   max-width: 100%; /* Ограничиваем максимальную ширину до 100% ширины родительского контейнера */
-  color: var(--tg-theme-text-color);
-  background: var(--tg-theme-bg-color);
+  margin-bottom: 15px;
 }
 
 .categories button {
@@ -227,7 +227,7 @@ export default defineComponent({
 
 .categories span{
   font-family: Roboto,sans-serif;
-  color: var(--tg-theme-text-color);
+  color: var(--color-text);
 }
 
 .category-icon {
@@ -247,8 +247,8 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   width: calc(33.33% - 20px); /* Уменьшено расстояние между карточками */
-  color: var(--tg-theme-text-color);
-  background: var(--tg-theme-secondary-bg-color);
+  color: var(--color-text);
+  background: var(--color-background);
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 0 0 20px 0;
@@ -286,9 +286,8 @@ export default defineComponent({
   justify-content: center;
   overflow: hidden;
   margin-top: auto; /* Размещаем контролы внизу карточки */
-  border: 2px solid var(--tg-theme-text-color);
+  border: 2px solid var(--color-background);
   border-radius: 10px;
-  color: var(--tg-theme-text-color);
   width: 100%;
 }
 .quantity-controls input[type="number"]{
@@ -297,16 +296,16 @@ export default defineComponent({
   outline: none;
   appearance: none; /* Other browsers */
   text-align: center;
-  color: var(--tg-theme-text-color);
-  background-color: var(--tg-theme-secondary-bg-color);
+  color: var(--color-text);
+  background-color: var(--color-background);
   border: none;
   box-sizing: border-box; /* Учитываем padding внутри элемента */
   font-size: 16px;
 }
 
 .quantity-controls button {
-  background-color: var(--tg-theme-secondary-bg-color);
-  color: var(--tg-theme-text-color);
+  background-color: var(--color-background);
+  color: var(--color-text);
   border: none;
   width: 100%;
   height: 36px;
@@ -322,8 +321,8 @@ export default defineComponent({
 }
 .to-cart-btn-home {
   width: 100%;
-  background: var(--tg-theme-button-color);
-  color: var(--tg-theme-button-text-color);
+  background: var(--color-pink-accent);
+  color: var(--vt-c-white);
   margin: 10px;
   border: none;
   padding: 10px;
@@ -339,6 +338,16 @@ export default defineComponent({
 .carousel__pagination{
   padding: 0;
   margin-top: 0;
+}
+
+.product-item-price {
+  color: var(--color-pink-accent);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.product-item-name {
+  font-size: 16px;
 }
 </style>
 
