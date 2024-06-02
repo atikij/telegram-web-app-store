@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import flowerData from "@/assets/flowers.json";
 import { defineComponent } from 'vue'
 import { Carousel, Pagination, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
@@ -74,7 +73,6 @@ export default defineComponent({
         unique_subcategories: [],
         goods_list: [],
       },
-      products: flowerData,
       cart: [],
       notFoundImage :'https://yt3.googleusercontent.com/iRLpuvr-WoAkDmOmXQiVnk7Gf4knJ6_OmIqZRmal4FeFxwbPLkMwIWm4QZlvH9t2GojQWZ4P=s900-c-k-c0x00ffffff-no-rj'
     };
