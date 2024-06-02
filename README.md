@@ -1,4 +1,4 @@
-#  telegram-web-app
+#  telegram-web-app only mobile
 
 This template should help get you started developing with Vue 3 in Vite.
 
