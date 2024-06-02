@@ -1,13 +1,15 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --vt-c-white: #ebf1f1
-;
-  --vt-c-white-soft: #f8f8f8;
+  --vt-c-white: #FFFFFF;
+  --vt-c-white-soft: #EFEFEF;
   --vt-c-white-mute: #f2f2f2;
-  --vt-c-pink-bright: #fa00b6;
-  --vt-c-pink-dim: #f4d1e1;
-  --vt-c-pink-bright-dark: #ff57cd;
-  --vt-c-pink-dim-dark: #785565;
+  --vt-c-pink-bright: #8D0048;
+  --vt-c-pink-dim: #FFDDEE;
+  --vt-c-pink-bright-dark: #FFDDEE;
+  --vt-c-pink-dim-dark: #8D0048;
+
+  --vt-c-dark:rgba(61, 61, 61, 1);
+  --vt-c-dark-soft:rgba(108, 108, 108, 1);
 
   --vt-c-black: #181818;
   --vt-c-black-soft: #222222;
@@ -34,6 +36,7 @@
   --color-pink-accent: var(--vt-c-pink-bright);
   --color-pink-dim:var(--vt-c-pink-dim);
   --color-input: var(--vt-c-black);
+  --color-small-card-to-cart-text: var(--vt-c-white);
 
   --color-border: var(--vt-c-divider-light-2);
   --color-border-hover: var(--vt-c-divider-light-1);
@@ -46,18 +49,19 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
+    --color-background: var(--vt-c-dark);
+    --color-background-soft: var(--vt-c-dark-soft);
     --color-background-mute: var(--vt-c-black-mute);
     --color-pink-accent: var(--vt-c-pink-bright-dark);
     --color-pink-dim:var(--vt-c-pink-dim-dark);
     --color-input: var(--vt-c-white);
+    --color-small-card-to-cart-text: #8D0048;
 
     --color-border: var(--vt-c-divider-dark-2);
     --color-border-hover: var(--vt-c-divider-dark-1);
 
     --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-text: var(--vt-c-white);
   }
 }
 *,
